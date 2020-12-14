@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
+  <title>12Uomo</title>
+  <link href="website.css" rel="stylesheet" type="text/css">
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="p5.min.js"></script>
+  <!-- <script src="p5.sound.min.js"></script> -->
+  <script src="sketch_website.js"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="header">
+    <div class="header" id="logo"></div>
+    <!-- <div class="voci" id="partita"><b>PARTITA</b></div>
+    <div class="voci" id="strumentikit">STRUMENTI KIT</div>
+    <div class="voci" id="aboutus">ABOUT US</div> -->
+  </div>
+  <div class="punteggio">
+    <div class="maglia"></div>
+    <div class="team" id="team1">TEAM1</div>
+    <div class="team">
+      <div class="countDown" id="countDown">
+        43:44
+      </div>
+      1 : 1
+    </div>
+    <div class="team" id="team2">TEAM2</div>
+    <div class="maglia"></div>
+  </div>
+  <div class="performance">
+    <p id="tm1">PERFORMANCE <b>TM1</b></p>
+    <p id="tm2">PERFORMANCE <b>TM2</b></p>
+  </div>
+  <div class="videoBar">
+    <button id="startBtn" onclick="startTimer(), emitTimer('startTimer')" > start </button>
+    <button id="stopBtn" onclick="stopTimer(), emitTimer('stopTimer')"> stop </button>
+    <button id="resetBtn" onclick="resetTimer(), emitTimer('resetTimer')"> reset </button>
+    <button id="x" onclick="smallScreen()" style="display:none">x</button>
+    <div id="real"></div>
+    <div id="large" onclick="fullScreen()"></div>
+  </div>
+  <div class="statBar">
+    <p class="voceStat" onclick="funIframe('/piattaforma/index.html')" id="tifo" style="background: #f9f9f8">TIFO</p>
+    <p class="voceStat" onclick="funIframe('statistiche.html')" id="stat" style="background: rgba(214,209,211,0.25); font-weight:bold">STAT</p>
+  </div >
+  <div class="videoView" id="videoView"></div>
+  <div class="canvasIframe">
+  <iframe id="iframe" src="statistiche.html"></iframe>
+  </div>
+  <div class="footer">
+    <p>© 12Uomo – Il Vero tifo  |  Privacy Notice – Cookie Notice  – FAQ</p>
+  </div>
+
+  <div class="fullScreen" id="fullScreen">
+  </div>
+</body>
+
+</html>

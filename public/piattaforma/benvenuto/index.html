@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
+
+  <title>12Uomo</title>
+  <link href="website.css" rel="stylesheet" type="text/css">
+  <script src="/socket.io/socket.io.js"></script>
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="p5.min.js"></script>
+  <script src="p5.sound.min.js"></script>
+  <script src="sketchBenvenuto.js"></script>
+
+</head>
+
+<body>
+
+
+  <label class="container" id ="container"> HO LETTO E ACCETTATO L’INFORMATIVA PRIVACY
+    <input type="checkbox" onclick="q()">
+    <span class="checkmark"></span>
+  </label>
+
+  <form id="forum">
+    <input type="text"  name="fname" value="ITAFRN12">
+  </form>
+
+  <div id='schermo'>
+  <img src="./assets/info.png" id="imm">
+      <div class="overlay">
+        <div class="text">Il codice si trova in basso a destra sulla tv.<br/>Si compone con l’acronimo della I squadra
+          <br/> + acronimo della II + numero della partita.<br/>es. ITAFRN12
+        </div>
+      </div>
+</div>
+
+
+
+
+</body>
+
+</html>

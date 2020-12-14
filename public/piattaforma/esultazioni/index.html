@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
+<link rel="icon" href="/assets/logoMini.png" type="image/gif">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="../../../website.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="/socket.io/socket.io.js"></script>
+<style>
+
+
+#schermo{
+    position:absolute;
+    margin:0;
+    width:100%;
+    height: 100%;
+    z-index:0;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+
+#tutorial{
+    display: none;
+    width: 90.959px;
+    height: 87.369px;
+}
+    </style>
+    <script src="p5.min.js"></script>
+    <script src="p5.sound.min.js"></script>
+    <script src="p5.speech.js"></script>
+    <script src="sketch.js"></script>
+  </head>
+  <body>
+    <div id='schermo'>
+      <img src="./assets/Tutorial_puntini.gif" id="tutorial">
+      <div class="textPausa">
+        <p id="contTifo" onclick="startTifo()">continua <br> <font color=#B7AEB5>a tifare</font> </p>
+        <p id="abbTifo" onclick="resetTifo()">abbandona <br> <font color=#B7AEB5>lo stadio</font> </p>
+      </div>
+      <div class="iconPausa">
+        <button id="startTifo" style="display:none" onclick="startTifo()"></button>
+        <button id="resetTifo" style="display:none" onclick="resetTifo()"></button>
+      </div>
+  </body>
+</html>
