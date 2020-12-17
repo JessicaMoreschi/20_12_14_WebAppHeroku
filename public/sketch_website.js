@@ -9,8 +9,12 @@ var thisTime = 180; //secondi allo stopTimer
 var testo = 180; //variabile testo this countdown
 
 
-var bonus_preso = 1;
-var contBonus = 12; //conta quando p_coord arriva a 100
+var bonus_preso = 0;
+var contBonus = 22; //conta quando p_coord arriva a 100
+
+
+var daspo_counter = 0;
+
 
 let videoAction;
 var myCanvas
@@ -21,36 +25,51 @@ socket.on("startTimer", startTimer); // StartTimer
 socket.on("stopTimer", stopTimer); // StopTimer
 socket.on("resetTimer", resetTimer); // ResetTimer
 // RICEZIONE BONUS
- socket.on("bonusIn", bonus_server);
+socket.on("bonusIn", bonus_server);
 
- function bonus_server(data){
-     contBonus = data.bonus;
-     bonus_preso = data.b_tot;
-   }
+function bonus_server(data) {
+  contBonus = data.bonus;
+  bonus_preso = data.b_tot;
+}
+
+//RICEZIONE DASPO
+socket.on("daspoIn", updateDaspo);
+
+function updateDaspo(dataReceived) {
+  daspo_counter = dataReceived;
+}
+
 
 function setup() {
+
 // SETUP VIDEO
   videoAction = document.getElementById('videoView');
 }
 
 
 function draw() {
-// DISPLAY COUNTDOWN
-  document.getElementById("countDown").innerHTML = testo+"'";
+  // DISPLAY COUNTDOWN
+  document.getElementById("countDown").innerHTML = testo + "'";
 
   if (gap < 0) {
     testo = "finish" // text fine partita
   }
 
-//EMIT COUNTDOWN
+  //EMIT COUNTDOWN
   socket.emit("testoOut", testo);
 
-//EMIT BONUS
+  //EMIT BONUS
   let message = {
     bonus: contBonus,
     b_tot: bonus_preso,
   }
-    socket.emit("bonusOut",message);
+  socket.emit("bonusOut", message);
+
+
+
+  //EMIT daspoOut
+
+  socket.emit("daspoOut", daspo_counter);
 
 //spot
 if (testo == 91) {
@@ -75,9 +94,9 @@ if (testo == 90) {
     testo = thisTime; //visualizza countdown
     countDown = new Date().getTime() + (thisTime * 1000); //+1000=+1s
     startTimer()
+
   }
 }
-
 
 }
 
@@ -93,6 +112,7 @@ function startTimer() {
   }, 1000);
   videoAction.play(); //lega video al timer
 }
+
 function stopTimer() {
   clearInterval(x); //blocca countdown
   thisTime = runningTime; //registra secondo allo stop
@@ -100,6 +120,7 @@ function stopTimer() {
   countDown = new Date().getTime() + (thisTime * 1000); //+1000=+1s
   videoAction.pause(); //lega video al timer
 }
+
 function resetTimer() {
   clearInterval(x); //blocca countdown
   thisTime = 180; //resetta countdown
@@ -201,9 +222,9 @@ function fullScreen() {
 }
 
 function smallScreen() {
-  myCanvas = createCanvas(windowWidth/100*49.5, windowHeight/100*49.5);
+  myCanvas = createCanvas(windowWidth / 100 * 49.5, windowHeight / 100 * 49.5);
   myCanvas.parent('videoView');
-  myCanvas.position(0,windowHeight/100*43.25);
+  myCanvas.position(0, windowHeight / 100 * 43.25);
   background("#b1a4af");
   document.getElementById("x").style.display = 'none';
   document.getElementById("fullScreen").style.display = 'none';
@@ -227,7 +248,7 @@ function smallScreen() {
   document.getElementById("resetBtn").removeAttribute("style.left");
 }
 
-function emitTimer(data){
+function emitTimer(data) {
   socket.emit(data);
 }
 

@@ -158,7 +158,13 @@ function setup() {
 function draw() {
   let iterator = (180-testo)/100
   let noiseVal = noise(iterator) * height/100;
-  let inc = noiseVal
+  let inc;
+  //condizioni tempo
+  if ((testo<166 && testo>152)||(testo<145 && testo>141)||(testo<123 && testo>104)||(testo<84 && testo>36)||(testo<23 && testo>5)) {
+    inc = -noiseVal
+  } else {
+    inc = noiseVal
+  }
 
   //incremento x-y
   x1 = map(testo,180,0,width/100*2.5,width/2);
@@ -213,6 +219,7 @@ function draw() {
   if (testo==180){
     setup()
   }
+
 }
 
 

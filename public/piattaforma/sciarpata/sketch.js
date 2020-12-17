@@ -85,12 +85,20 @@ function updateTesto(dataReceived) {
   testo = dataReceived //assegna a testo dati da server
 }
 // RICEZIONE BONUS
- socket.on("bonusIn", bonus_server);
+socket.on("bonusIn", bonus_server);
 
- function bonus_server(data){
-     contBonus = data.bonus;
-     bonus_preso = data.b_tot;
-   }
+function bonus_server(data) {
+  contBonus = data.bonus;
+  bonus_preso = data.b_tot;
+}
+
+//UPDATE DASPO
+socket.on("daspoIn", updateDaspo);
+
+function updateDaspo(dataReceived) {
+  daspo_counter = dataReceived;
+}
+
 
 ////////////////FINE COMUNICAZIONE SERVER/////////////////////////////////////
 
@@ -128,6 +136,11 @@ function draw() {
   if (frameCount % 70 == 0) { //multiplo di 70 incrementa i
     i++;
     j = 0;
+  }
+
+  ///////cambio cartella //////////////////////////////////////////////////
+  if (testo == 65) {
+    window.open('../indexPausa.html', '_self'); //doppio puntino per andare nella cartella sopra
   }
 
   background('#F9F9F9'); //chiaro
@@ -181,11 +194,11 @@ function draw() {
     contBonus++;
 
     //EMIT BONUS
-      let message = {
-        bonus: contBonus,
-        b_tot: bonus_preso,
-      }
-        socket.emit("bonusOut",message);
+    let message = {
+      bonus: contBonus,
+      b_tot: bonus_preso,
+    }
+    socket.emit("bonusOut", message);
   }
   console.log('BONUS CONTATOR:' + contBonus);
 
@@ -232,10 +245,7 @@ function draw() {
       pop();
 
     } else if (contBonus === 24) {
-
-      contBonus = 0; //azzerare i bonus
-      bonus_preso = 1; //per dire che hai completato una fascia di bonus
-      window.open('../bonus-app12uomo/index.html', '_self'); //doppio puntino per andare nella cartella sopra
+      window.open('../bonus/index.html', '_self'); //doppio puntino per andare nella cartella sopra
     }
 
     ellipse(w + s, h * 45.5, 15);
@@ -267,11 +277,11 @@ function draw() {
     image(sciarpaBIcon, w * 10, h * 25, sciarpaBIcon.width / 6, sciarpaBIcon.height / 6); //chiara
     feed_piattaforma = 0;
   } else if (i % 2 == 0 && i > 3) { //cambio colore delle bottone centrale: feedback utente
-    if (j == 0 || j == 23 || j == 46 || j==70) { //pulsazioni del cerchio
+    if (j == 0 || j == 23 || j == 46 || j == 70) { //pulsazioni del cerchio
       pulsazione = 0
-    } else if (j < 12 || j > 23 && j < 35 || j>46 && j<58) {
+    } else if (j < 12 || j > 23 && j < 35 || j > 46 && j < 58) {
       pulsazione += 4;
-    } else if (j > 12 && j < 23 || j > 35 && j < 46 || j>58 && j<70) {
+    } else if (j > 12 && j < 23 || j > 35 && j < 46 || j > 58 && j < 70) {
       pulsazione -= 4;
     }
     push()
@@ -416,12 +426,12 @@ function draw() {
     }
   }
 
+  socket.emit("daspoOut", daspo_counter);
+
+
   //console.log (topPrediction);
 
-  ///////cambio cartella //////////////////////////////////////////////////
-  if (i == 20) {
-    window.open('../indexPausa.html', '_self'); //doppio puntino per andare nella cartella sopra
-  }
+
   //////////////////////////////////////////////////////////////////
 }
 

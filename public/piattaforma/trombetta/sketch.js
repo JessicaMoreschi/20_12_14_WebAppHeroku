@@ -59,12 +59,20 @@ function updateTesto(dataReceived) {
   testo = dataReceived //assegna a testo dati da server
 }
 // RICEZIONE BONUS
- socket.on("bonusIn", bonus_server);
+socket.on("bonusIn", bonus_server);
 
- function bonus_server(data){
-     contBonus = data.bonus;
-     bonus_preso = data.b_tot;
-   }
+function bonus_server(data) {
+  contBonus = data.bonus;
+  bonus_preso = data.b_tot;
+}
+
+//UPDATE DASPO
+socket.on("daspoIn", updateDaspo);
+
+function updateDaspo(dataReceived) {
+  daspo_counter = dataReceived;
+}
+
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -151,12 +159,12 @@ function draw() {
 
   if (p_coord === 80) {
     contBonus++;
-  //EMIT BONUS
-      let message = {
-        bonus: contBonus,
-        b_tot: bonus_preso,
-      }
-        socket.emit("bonusOut",message);
+    //EMIT BONUS
+    let message = {
+      bonus: contBonus,
+      b_tot: bonus_preso,
+    }
+    socket.emit("bonusOut", message);
   }
   console.log('BONUS CONTATOR:' + contBonus);
 
@@ -203,9 +211,7 @@ function draw() {
       pop();
 
     } else if (contBonus === 24) {
-      contBonus = 0; //azzerare i bonus
-      bonus_preso = 1; //per dire che hai completato una fascia di bonus
-      window.open('../bonus-app12uomo/index.html', '_self'); //doppio puntino per andare nella cartella sopra
+      window.open('../bonus/index.html', '_self'); //doppio puntino per andare nella cartella sopra
     }
     ellipse(w + s, h * 45.5, 15);
     s = 25 * i;
@@ -222,10 +228,10 @@ function draw() {
 
   // BARRETTE FEED UTENTE (LINETTE)
   for (var x = w * 3.8; x < w * 8.8; x += 40) {
-    if (keyIsDown(ENTER)) {
+    if (keyIsDown(ENTER) && daspo == false) {
       alt = 1 * random(1, 8.5);
       input_utente = 250;
-      pulsazione=0;
+      pulsazione = 0;
     } else {
       alt = 1;
       input_utente = 0;
@@ -268,7 +274,7 @@ function draw() {
     noStroke()
     fill("#E5E5E5")
     ellipse(width / 2, height / 2, 100 + pulsazione)
-    pop()//fine puslazioni cerchio
+    pop() //fine puslazioni cerchio
 
     push();
     fill('#877B85');
@@ -301,7 +307,7 @@ function draw() {
   pop();
 
   //TUTORIAL TROMBETTA + TESTI GIUSTO/SBAGLATO
-  if (i == 0 || i == 2 ) {
+  if (i == 0 || i == 2) {
     image(tut1Icon, w * 10, h * 24.5, tut1Icon.width / 5.5, tut1Icon.height / 5.5);
     tut2Icon.reset();
     text('Segui il ritmo degli altri', w * 10, h * 31);
@@ -327,6 +333,7 @@ function draw() {
     daspo_counter++;
     secondo_corrente = testo;
   }
+
 
   //rettangolo in poacità per la daspo
   push();
@@ -387,9 +394,13 @@ function draw() {
     }
   }
 
+  socket.emit("daspoOut", daspo_counter);
+  console.log("daspo totale " + daspo_counter);
 
   ///////cambio cartella //////////////////////////////////////////////////
-  if (i == 15) {
+  if (testo == 133) {
+    window.open('../indexPausa.html', '_self'); //doppio puntino per andare nella cartella sopra
+  } else if (testo == 26 || testo < 26) {
     window.open('../indexPausa.html', '_self'); //doppio puntino per andare nella cartella sopra
   }
   //////////////////////////////////////////////////////////////////

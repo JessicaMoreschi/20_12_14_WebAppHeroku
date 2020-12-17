@@ -1,6 +1,21 @@
+// Server
+let socket = io(); //setting server
+//Coundown
+var testo = 180; //valore countdown
 
 let logoIcon;
 let tIcon;
+////////////////COMUNICAZIONE SERVER/////////////////////////////////////
+// RICEZIONE
+socket.on("testoIn", updateTesto); //ricezione countdown
+socket.on("stopTimer", dispPausaSer);
+socket.on("startTimer", startTifoSer);
+socket.on("resetTimer", resetTifoSer);
+
+// UPDATE DA SERVER
+function updateTesto(dataReceived) {
+  testo = dataReceived //assegna a testo dati da server
+}
 /////////////////////////////////////////////////////////////////////////
 
 function preload() {
@@ -40,12 +55,72 @@ function draw() {
   fill('#B7AEB5'); //3 PALETTE
   text('PREPARATI A TIFARE', width / 2, height / 6*5.1 );
 
-
-
-if(mouseIsPressed){
+if(testo == 153||testo == 154){
+   window.open('index.html','_self');
+} else if(testo == 58||testo < 58 ){
    window.open('index.html','_self');
 }
+
 }
+///////COMANDI PAUSA-STOP-RESET/////////////////////////////////////////////////////
+//funzioni per attivare la pausa
+function dispPausa() {
+  socket.emit("stopTimer");
+  document.getElementById("schermo").style.backgroundColor = "#877B85";
+  document.getElementById("startTifo").style.display = "block";
+  document.getElementById("resetTifo").style.display = "block";
+  document.getElementById("contTifo").style.display = "block";
+  document.getElementById("abbTifo").style.display = "block";
+  document.getElementsByClassName("iconPausa").style.display = "block";
+}
+
+function startTifo() {
+  socket.emit("startTimer");
+  document.getElementById("schermo").style.backgroundColor = "transparent";
+  document.getElementById("startTifo").style.display = "none";
+  document.getElementById("resetTifo").style.display = "none";
+  document.getElementById("contTifo").style.display = "none";
+  document.getElementById("abbTifo").style.display = "none";
+  document.getElementsByClassName("iconPausa").style.display = "none";
+}
+
+function resetTifo() {
+  socket.emit("resetTimer");
+  document.getElementById("schermo").style.backgroundColor = "transparent";
+  document.getElementById("startTifo").style.display = "none";
+  document.getElementById("resetTifo").style.display = "none";
+  document.getElementById("contTifo").style.display = "none";
+  document.getElementById("abbTifo").style.display = "none";
+  document.getElementsByClassName("iconPausa").style.display = "none";
+}
+
+function dispPausaSer() {
+  document.getElementById("schermo").style.backgroundColor = "#877B85";
+  document.getElementById("startTifo").style.display = "block";
+  document.getElementById("resetTifo").style.display = "block";
+  document.getElementById("contTifo").style.display = "block";
+  document.getElementById("abbTifo").style.display = "block";
+  document.getElementsByClassName("iconPausa").style.display = "block";
+}
+
+function startTifoSer() {
+  document.getElementById("schermo").style.backgroundColor = "transparent";
+  document.getElementById("startTifo").style.display = "none";
+  document.getElementById("resetTifo").style.display = "none";
+  document.getElementById("contTifo").style.display = "none";
+  document.getElementById("abbTifo").style.display = "none";
+  document.getElementsByClassName("iconPausa").style.display = "none";
+}
+
+function resetTifoSer() {
+  document.getElementById("schermo").style.backgroundColor = "transparent";
+  document.getElementById("startTifo").style.display = "none";
+  document.getElementById("resetTifo").style.display = "none";
+  document.getElementById("contTifo").style.display = "none";
+  document.getElementById("abbTifo").style.display = "none";
+  document.getElementsByClassName("iconPausa").style.display = "none";
+}
+
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);

@@ -44,7 +44,6 @@ let daspo_gif_3, daspo_gif_4, daspo_gif_5;
 let durata_daspo = 0; //durata della daspo
 let secondo_corrente = 0; //secondo dell'inizio daspo
 
-
 let j = 0; //sottomultiplo di i, ogni i è composto da 50 j
 let pulsazione = 0; //variabile per fare pulsare il cerchio della trombetta
 
@@ -59,13 +58,21 @@ socket.on("resetTimer", resetTifoSer);
 function updateTesto(dataReceived) {
   testo = dataReceived //assegna a testo dati da server
 }
-// RICEZIONE BONUS
- socket.on("bonusIn", bonus_server);
 
- function bonus_server(data){
-     contBonus = data.bonus;
-     bonus_preso = data.b_tot;
-   }
+//UPDATE DASPO
+socket.on("daspoIn", updateDaspo);
+
+function updateDaspo(dataReceived) {
+  daspo_counter = dataReceived;
+}
+
+// RICEZIONE BONUS
+socket.on("bonusIn", bonus_server);
+
+function bonus_server(data) {
+  contBonus = data.bonus;
+  bonus_preso = data.b_tot;
+}
 
 ////////////////FINE COMUNICAZIONE SERVER/////////////////////////////////////
 
@@ -142,378 +149,385 @@ function draw() {
   //width/7 è la metà della barra, che è lunga width/3.5
   rect(w * 10 - width / 7, h * 45.5 - 7.5, xBarra, 15, 20);
   pop();
+  ///////cambio cartella //////////////////////////////////////////////////
+  if (testo == 100) {
+    window.open('../indexPausa.html', '_self'); //doppio puntino per andare nella cartella sopra
+  } else if (testo == 2 || testo < 2) {
+    window.open('../indexPausa.html', '_self'); //doppio puntino per andare nella cartella sopra
+  }
+  //////////////////////////////////////////////////////////////////
 
   ///////////////BONUS//////////////////////////////////////////////////////////////
   //pallini BONUS
 
-    if (p_coord > 60) {
-      contBonus += 4;
-  //EMIT BONUS
-        let message = {
-          bonus: contBonus,
-          b_tot: bonus_preso,
-        }
-          socket.emit("bonusOut",message);
+  if (p_coord > 60) {
+    contBonus += 4;
+    //EMIT BONUS
+    let message = {
+      bonus: contBonus,
+      b_tot: bonus_preso,
     }
+    socket.emit("bonusOut", message);
+  }
 
-    //pallini BONUS
-    for (let i = 0; i < 6; i++) { // ogni 4 da il bonus
-      if (contBonus === 4 || contBonus === 5 || contBonus === 6 || contBonus === 7) {
-        push();
-        fill('#877B85');
-        ellipse(w, h * 45.5, 15);
-        pop();
-
-      } else if (contBonus === 8 || contBonus === 9 || contBonus === 10 || contBonus === 11) {
-        push();
-        fill('#877B85');
-        ellipse(w, h * 45.5, 15);
-        ellipse(w + 25, h * 45.5, 15);
-        pop();
-
-      } else if (contBonus === 12 || contBonus === 13 || contBonus === 14 || contBonus === 15) {
-        push();
-        fill('#877B85');
-        ellipse(w, h * 45.5, 15);
-        ellipse(w + 25, h * 45.5, 15);
-        ellipse(w + 50, h * 45.5, 15);
-        pop();
-
-      } else if (contBonus === 16 || contBonus === 17 || contBonus === 18 || contBonus === 19) {
-        push();
-        fill('#877B85');
-        ellipse(w, h * 45.5, 15);
-        ellipse(w + 25, h * 45.5, 15);
-        ellipse(w + 50, h * 45.5, 15);
-        ellipse(w + 75, h * 45.5, 15);
-        pop();
-
-      } else if (contBonus === 20 || contBonus === 21 || contBonus === 22 || contBonus === 23) {
-        push();
-        fill('#877B85');
-        ellipse(w, h * 45.5, 15);
-        ellipse(w + 25, h * 45.5, 15);
-        ellipse(w + 50, h * 45.5, 15);
-        ellipse(w + 75, h * 45.5, 15);
-        ellipse(w + 100, h * 45.5, 15);
-        pop();
-
-      } else if (contBonus === 24) {
-
-        contBonus = 0; //azzerare i bonus
-        bonus_preso = 1; //per dire che hai completato una fascia di bonus
-        window.open('../bonus-app12uomo/index.html', '_self'); //doppio puntino per andare nella cartella sopra
-      }
-
-      ellipse(w + s, h * 45.5, 15);
-      s = 25 * i;
-    }
-
-    /////////////////// LA PARTE SOPRA è STANDARD ///////////////////////////////////////////////
-
-    if (bonus_preso == 1) {
-      document.getElementById("tutorial").style.display = "none";
+  //pallini BONUS
+  for (let i = 0; i < 6; i++) { // ogni 4 da il bonus
+    if (contBonus === 4 || contBonus === 5 || contBonus === 6 || contBonus === 7) {
       push();
-      //CONTENITORI PAROLE VECCHE
-      rectMode(CENTER);
-      strokeWeight(5);
-      stroke(textColorS) //viola
-      fill(bButtonColorS) //bianco
-      rect(w * 6, h * 31, w * 3, 60, 40);
-      stroke(textColorD) //viola
-      fill(bButtonColorD) //bianco
-      rect(w * 14, h * 31, w * 3, 60, 40);
-      //nuova parola
-      stroke(textColorC) //viola
-      fill(bButtonColorC) //bianco
-      rect(w * 10, h * 31, w * 3, 60, 40);
-
-      noStroke();
-      textSize(30);
-      textAlign(CENTER, TOP);
-      fill(textColorS);
-      text('forza.', w * 6, h * 31 - 15);
-      fill(textColorD);
-      text('bravi.', w * 14, h * 31 - 15);
-      fill(textColorC);
-      text('oplà.', w * 10, h * 31 - 15);
+      fill('#877B85');
+      ellipse(w, h * 45.5, 15);
       pop();
 
-      //ICONA CENTRALE CHE REAGISCE AL MIC
-      if (p == 0) { // cambio colore del bottone centrale: feedback utente
-        image(baloonIcon, width / 2, h * 20, baloonIcon.width / 4, baloonIcon.height / 4);
-      } else if (p == 1) {
-        image(noParola, width / 2, h * 20, noParola.width / 4, noParola.height / 4);
-      }
-
-    } else {
+    } else if (contBonus === 8 || contBonus === 9 || contBonus === 10 || contBonus === 11) {
       push();
-      //CONTENITORI SCRITTE DA PRONUNCIARE
-      rectMode(CENTER);
-      stroke(textColorS) //viola
-      strokeWeight(5);
-      fill(bButtonColorS) //bianco
-      rect(w * 6, height / 2, w * 4, 60, 40);
-      stroke(textColorD) //viola
-      fill(bButtonColorD) //bianco
-      rect(w * 14, height / 2, w * 4, 60, 40);
-
-      noStroke();
-      textSize(30);
-      textAlign(CENTER, TOP);
-      fill(textColorS) //viola
-      text('forza.', w * 6, height / 2 - 15);
-      fill(textColorD) //viola
-      text('bravi.', w * 14, height / 2 - 15);
+      fill('#877B85');
+      ellipse(w, h * 45.5, 15);
+      ellipse(w + 25, h * 45.5, 15);
       pop();
 
-      //ICONA CENTRALE CHE REAGISCE AL MIC
-      if (i > 1 && p == 0) { // cambio colore del bottone centrale: feedback utente
-
-        if (j == 0 || j == 25 || j == 50) { //pulsazioni del cerchio
-          pulsazione = 0
-        } else if (j < 12 || j > 25 && j < 37) {
-          pulsazione += 4;
-        } else if (j > 12 && j < 25 || j > 37 && j < 50) {
-          pulsazione -= 4;
-        }
-        push()
-        noStroke()
-        fill("#E5E5E5")
-        ellipse(width / 2, height / 2, 100 + pulsazione)
-        pop() //fine puslazioni cerchio
-
-        image(baloonIcon, width / 2, height / 2, baloonIcon.width / 4, baloonIcon.height / 4);
-      } else if (i > 1 && p == 1) {
-        image(noParola, width / 2, height / 2, noParola.width / 4, noParola.height / 4);
-      }
-
-      //rettangolo in opacità
+    } else if (contBonus === 12 || contBonus === 13 || contBonus === 14 || contBonus === 15) {
       push();
-      rectMode(CORNER)
-      fill(255, 255, 255, opacità);
-      rect(0, 0, width, height);
-      //rettangolo diventta trasparente alla fine del tutorial
-      if (i > 1) {
-        opacità = 0
-      }
+      fill('#877B85');
+      ellipse(w, h * 45.5, 15);
+      ellipse(w + 25, h * 45.5, 15);
+      ellipse(w + 50, h * 45.5, 15);
       pop();
 
-      //TUTORIAL
+    } else if (contBonus === 16 || contBonus === 17 || contBonus === 18 || contBonus === 19) {
       push();
-      textSize(16);
-      fill('#B7AEB5'); //3 PALETTE
-      if (i < 1 || i == 1) {
-        document.getElementById("tutorial").style.display = "block";
-        text('Scegli una parola', w * 10, h * 31);
-        text('ESULTA QUANDO RICHIESTO', w * 10, h * 33);
-      } else {
-        document.getElementById("tutorial").style.display = "none";
-      }
+      fill('#877B85');
+      ellipse(w, h * 45.5, 15);
+      ellipse(w + 25, h * 45.5, 15);
+      ellipse(w + 50, h * 45.5, 15);
+      ellipse(w + 75, h * 45.5, 15);
+      pop();
+
+    } else if (contBonus === 20 || contBonus === 21 || contBonus === 22 || contBonus === 23) {
+      push();
+      fill('#877B85');
+      ellipse(w, h * 45.5, 15);
+      ellipse(w + 25, h * 45.5, 15);
+      ellipse(w + 50, h * 45.5, 15);
+      ellipse(w + 75, h * 45.5, 15);
+      ellipse(w + 100, h * 45.5, 15);
+      pop();
+
+    } else if (contBonus === 24) {
+      window.open('../bonus/index.html', '_self'); //doppio puntino per andare nella cartella sopra
     }
 
-    //ritmo
-    j++;
-    if (frameCount % 50 == 0) { //multiplo di 50 incrementa i
-      i++;
-      j = 0;
-    }
+    ellipse(w + s, h * 45.5, 15);
+    s = 25 * i;
+  }
 
-    //PERCENTUALE
-    if (input_utente == 1 && i > i_ritardo + 1) {
-      p_coord = round(random(10, 80));
-      input_utente = 0;
-    }
+  /////////////////// LA PARTE SOPRA è STANDARD ///////////////////////////////////////////////
 
-    if (i > i_ritardo + 2) {
-      window.open('../indexPausa.html', '_self'); //doppio puntino per andare nella cartella sopra
-    }
-
+  if (bonus_preso == 1) {
+    document.getElementById("tutorial").style.display = "none";
     push();
-    textAlign(CORNER);
-    fill('#B7AEB5'); //3° PALETTE
-    text('SCELTA DA  ' + p_coord + ' % DEGLI UTENTI', w * 10, h * 43);
+    //CONTENITORI PAROLE VECCHE
+    rectMode(CENTER);
+    strokeWeight(5);
+    stroke(textColorS) //viola
+    fill(bButtonColorS) //bianco
+    rect(w * 6, h * 31, w * 3, 60, 40);
+    stroke(textColorD) //viola
+    fill(bButtonColorD) //bianco
+    rect(w * 14, h * 31, w * 3, 60, 40);
+    //nuova parola
+    stroke(textColorC) //viola
+    fill(bButtonColorC) //bianco
+    rect(w * 10, h * 31, w * 3, 60, 40);
+
+    noStroke();
+    textSize(30);
+    textAlign(CENTER, TOP);
+    fill(textColorS);
+    text('forza.', w * 6, h * 31 - 15);
+    fill(textColorD);
+    text('bravi.', w * 14, h * 31 - 15);
+    fill(textColorC);
+    text('oplà.', w * 10, h * 31 - 15);
     pop();
 
-    //volume per daspo
-    let vol = mic.getLevel();
-    let vol_1 = round(map(vol, 0, 1, 0, 100));
-    //console.log("volume " + vol)
-
-
-    //DASPO
-    //daspo condizione
-    if (vol_1 > 30 && i > 1 && daspo == false) {
-      daspo = true;
-      daspo_counter++;
-      secondo_corrente = testo;
+    //ICONA CENTRALE CHE REAGISCE AL MIC
+    if (p == 0) { // cambio colore del bottone centrale: feedback utente
+      image(baloonIcon, width / 2, h * 20, baloonIcon.width / 4, baloonIcon.height / 4);
+    } else if (p == 1) {
+      image(noParola, width / 2, h * 20, noParola.width / 4, noParola.height / 4);
     }
 
-    //rettangolo in poacità per la daspo
+  } else {
     push();
-    rectMode(CORNER);
-    fill(255, 255, 255, op);
+    //CONTENITORI SCRITTE DA PRONUNCIARE
+    rectMode(CENTER);
+    stroke(textColorS) //viola
+    strokeWeight(5);
+    fill(bButtonColorS) //bianco
+    rect(w * 6, height / 2, w * 4, 60, 40);
+    stroke(textColorD) //viola
+    fill(bButtonColorD) //bianco
+    rect(w * 14, height / 2, w * 4, 60, 40);
+
+    noStroke();
+    textSize(30);
+    textAlign(CENTER, TOP);
+    fill(textColorS) //viola
+    text('forza.', w * 6, height / 2 - 15);
+    fill(textColorD) //viola
+    text('bravi.', w * 14, height / 2 - 15);
+    pop();
+
+    //ICONA CENTRALE CHE REAGISCE AL MIC
+    if (i > 1 && p == 0) { // cambio colore del bottone centrale: feedback utente
+
+      if (j == 0 || j == 25 || j == 50) { //pulsazioni del cerchio
+        pulsazione = 0
+      } else if (j < 12 || j > 25 && j < 37) {
+        pulsazione += 4;
+      } else if (j > 12 && j < 25 || j > 37 && j < 50) {
+        pulsazione -= 4;
+      }
+      push()
+      noStroke()
+      fill("#E5E5E5")
+      ellipse(width / 2, height / 2, 100 + pulsazione)
+      pop() //fine puslazioni cerchio
+
+      image(baloonIcon, width / 2, height / 2, baloonIcon.width / 4, baloonIcon.height / 4);
+    } else if (i > 1 && p == 1) {
+      image(noParola, width / 2, height / 2, noParola.width / 4, noParola.height / 4);
+    }
+
+    //rettangolo in opacità
+    push();
+    rectMode(CORNER)
+    fill(255, 255, 255, opacità);
     rect(0, 0, width, height);
+    //rettangolo diventta trasparente alla fine del tutorial
+    if (i > 1) {
+      opacità = 0
+    }
     pop();
 
-    //gif diverse per durate diverse
-    if (!daspo_gif_3) {
-      daspo_gif_3 = createImg("./assets/immagini/daspo3.gif");
+    //TUTORIAL
+    push();
+    textSize(16);
+    fill('#B7AEB5'); //3 PALETTE
+    if (i < 1 || i == 1) {
+      document.getElementById("tutorial").style.display = "block";
+      text('Scegli una parola', w * 10, h * 31);
+      text('ESULTA QUANDO RICHIESTO', w * 10, h * 33);
+    } else {
+      document.getElementById("tutorial").style.display = "none";
+    }
+  }
+
+  //ritmo
+  j++;
+  if (frameCount % 50 == 0) { //multiplo di 50 incrementa i
+    i++;
+    j = 0;
+  }
+
+  //PERCENTUALE
+  if (input_utente == 1 && i > i_ritardo + 1) {
+    p_coord = round(random(10, 80));
+    input_utente = 0;
+  }
+
+  if (i > i_ritardo + 2) {
+    window.open('../indexPausa.html', '_self'); //doppio puntino per andare nella cartella sopra
+  }
+
+  push();
+  textAlign(CORNER);
+  fill('#B7AEB5'); //3° PALETTE
+  text('SCELTA DA  ' + p_coord + ' % DEGLI UTENTI', w * 10, h * 43);
+  pop();
+
+  //volume per daspo
+  let vol = mic.getLevel();
+  let vol_1 = round(map(vol, 0, 1, 0, 100));
+  //console.log("volume " + vol)
+
+
+  //DASPO
+  //daspo condizione
+  if (vol_1 > 30 && i > 1 && daspo == false) {
+    daspo = true;
+    daspo_counter++;
+    secondo_corrente = testo;
+  }
+
+  //rettangolo in poacità per la daspo
+  push();
+  rectMode(CORNER);
+  fill(255, 255, 255, op);
+  rect(0, 0, width, height);
+  pop();
+
+  //gif diverse per durate diverse
+  if (!daspo_gif_3) {
+    daspo_gif_3 = createImg("./assets/daspo3.gif");
+    daspo_gif_3.hide();
+  }
+
+  if (!daspo_gif_4) {
+    daspo_gif_4 = createImg("./assets/daspo4.gif");
+    daspo_gif_4.hide();
+  }
+
+  if (!daspo_gif_5) {
+    daspo_gif_5 = createImg("./assets/daspo5.gif");
+    daspo_gif_5.hide();
+  }
+
+  //quando daspo==true fa partire la daspo giusta in base al numero di daspo
+  if (daspo == true) {
+    op = 210;
+
+    if (daspo_counter == 1) {
+      durata_daspo = 3;
+      daspo_gif_3.show();
+      daspo_gif_3.size(150, AUTO);
+      daspo_gif_3.position(width / 20, 3 * height / 4);
+    } else if (daspo_counter == 2) {
+      durata_daspo = 4;
+      daspo_gif_4.show();
+      daspo_gif_4.size(150, AUTO);
+      daspo_gif_4.position(width / 20, 3 * height / 4);
+    } else if (daspo_counter > 2) {
+      durata_daspo = 5;
+      daspo_gif_5.show();
+      daspo_gif_5.size(150, AUTO);
+      daspo_gif_5.position(width / 20, 3 * height / 4);
+    }
+  }
+
+  //chiusur daspo dopo tot secondi
+  if (daspo == true && testo == secondo_corrente - durata_daspo) {
+    op = 0;
+    daspo = false;
+    if (daspo_counter == 1) {
       daspo_gif_3.hide();
-    }
-
-    if (!daspo_gif_4) {
-      daspo_gif_4 = createImg("./assets/immagini/daspo4.gif");
+    } else if (daspo_counter == 2) {
       daspo_gif_4.hide();
-    }
-
-    if (!daspo_gif_5) {
-      daspo_gif_5 = createImg("./assets/immagini/daspo5.gif");
+    } else if (daspo_counter > 2) {
       daspo_gif_5.hide();
     }
-
-    //quando daspo==true fa partire la daspo giusta in base al numero di daspo
-    if (daspo == true) {
-      op = 210;
-
-      if (daspo_counter == 1) {
-        durata_daspo = 3;
-        daspo_gif_3.show();
-        daspo_gif_3.size(150, AUTO);
-        daspo_gif_3.position(width / 20, 3 * height / 4);
-      } else if (daspo_counter == 2) {
-        durata_daspo = 4;
-        daspo_gif_4.show();
-        daspo_gif_4.size(150, AUTO);
-        daspo_gif_4.position(width / 20, 3 * height / 4);
-      } else if (daspo_counter > 2) {
-        durata_daspo = 5;
-        daspo_gif_5.show();
-        daspo_gif_5.size(150, AUTO);
-        daspo_gif_5.position(width / 20, 3 * height / 4);
-      }
-    }
-
-    //chiusur daspo dopo tot secondi
-    if (daspo == true && testo == secondo_corrente - durata_daspo) {
-      op = 0;
-      daspo = false;
-      if (daspo_counter == 1) {
-        daspo_gif_3.hide();
-      } else if (daspo_counter == 2) {
-        daspo_gif_4.hide();
-      } else if (daspo_counter > 2) {
-        daspo_gif_5.hide();
-      }
-    }
-
   }
-  ////////fine draw///////////////////////////////////////////////////////////////////////////////////
+  console.log(vol_1)
+  socket.emit("daspoOut", daspo_counter);
+  console.log("daspo totale " + daspo_counter);
+
+}
+////////fine draw///////////////////////////////////////////////////////////////////////////////////
 
 
-  ////////// Riconoscimento vocale parole //////////////////////////////////////////////////////////////
+////////// Riconoscimento vocale parole //////////////////////////////////////////////////////////////
 
-  function gotSpeech() {
-    //  if(prima_p == 0){
-    if (i > 1 && p == 0) {
-      //console.log('p ' + p);
-      if (speechRec.resultValue) {
-        if (speechRec.resultString == 'forza') {
-          //sx
-          bButtonColorS = '#877B85';
-          textColorS = '#F9F9F9';
-          input_utente = 1;
-          p = 1;
-          i_ritardo = i;
+function gotSpeech() {
+  //  if(prima_p == 0){
+  if (i > 1 && p == 0) {
+    //console.log('p ' + p);
+    if (speechRec.resultValue) {
+      if (speechRec.resultString == 'forza') {
+        //sx
+        bButtonColorS = '#877B85';
+        textColorS = '#F9F9F9';
+        input_utente = 1;
+        p = 1;
+        i_ritardo = i;
 
-        } else if (speechRec.resultString == 'bravi') {
-          bButtonColorD = '#877B85';
-          textColorD = '#F9F9F9';
-          input_utente = 1;
-          p = 1;
-          i_ritardo = i;
+      } else if (speechRec.resultString == 'bravi') {
+        bButtonColorD = '#877B85';
+        textColorD = '#F9F9F9';
+        input_utente = 1;
+        p = 1;
+        i_ritardo = i;
 
-        } else if (speechRec.resultString == 'Oplà') {
-          bButtonColorC = '#877B85';
-          textColorC = '#F9F9F9';
-          input_utente = 1;
-          p = 1;
-          i_ritardo = i;
-        }
-
-        //console.log(speechRec.resultString);
-
+      } else if (speechRec.resultString == 'Oplà') {
+        bButtonColorC = '#877B85';
+        textColorC = '#F9F9F9';
+        input_utente = 1;
+        p = 1;
+        i_ritardo = i;
       }
+
+      //console.log(speechRec.resultString);
+
     }
   }
+}
 
-  /////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
 
-  function mouseClicked() {
-    bonus_preso = 1;
-  }
+function mouseClicked() {
+  bonus_preso = 1;
+}
 
-  function windowResized() {
-    resizeCanvas(windowWidth, windowHeight);
-  }
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
 
-  ///////COMANDI PAUSA-STOP-RESET/////////////////////////////////////////////////////
-  //funzioni per attivare la pausa
-  function dispPausa() {
-    socket.emit("stopTimer");
-    document.getElementById("tutorial").style.display = "none"
-    document.getElementById("schermo").style.backgroundColor = "#877B85";
-    document.getElementById("startTifo").style.display = "block";
-    document.getElementById("resetTifo").style.display = "block";
-    document.getElementById("contTifo").style.display = "block";
-    document.getElementById("abbTifo").style.display = "block";
-    document.getElementsByClassName("iconPausa").style.display = "block";
-  }
+///////COMANDI PAUSA-STOP-RESET/////////////////////////////////////////////////////
+//funzioni per attivare la pausa
+function dispPausa() {
+  socket.emit("stopTimer");
+  document.getElementById("tutorial").style.display = "none"
+  document.getElementById("schermo").style.backgroundColor = "#877B85";
+  document.getElementById("startTifo").style.display = "block";
+  document.getElementById("resetTifo").style.display = "block";
+  document.getElementById("contTifo").style.display = "block";
+  document.getElementById("abbTifo").style.display = "block";
+  document.getElementsByClassName("iconPausa").style.display = "block";
+}
 
-  function startTifo() {
-    socket.emit("startTimer");
-    document.getElementById("schermo").style.backgroundColor = "transparent";
-    document.getElementById("startTifo").style.display = "none";
-    document.getElementById("resetTifo").style.display = "none";
-    document.getElementById("contTifo").style.display = "none";
-    document.getElementById("abbTifo").style.display = "none";
-    document.getElementsByClassName("iconPausa").style.display = "none";
-  }
+function startTifo() {
+  socket.emit("startTimer");
+  document.getElementById("schermo").style.backgroundColor = "transparent";
+  document.getElementById("startTifo").style.display = "none";
+  document.getElementById("resetTifo").style.display = "none";
+  document.getElementById("contTifo").style.display = "none";
+  document.getElementById("abbTifo").style.display = "none";
+  document.getElementsByClassName("iconPausa").style.display = "none";
+}
 
-  function resetTifo() {
-    socket.emit("resetTimer");
-    document.getElementById("schermo").style.backgroundColor = "transparent";
-    document.getElementById("startTifo").style.display = "none";
-    document.getElementById("resetTifo").style.display = "none";
-    document.getElementById("contTifo").style.display = "none";
-    document.getElementById("abbTifo").style.display = "none";
-    document.getElementsByClassName("iconPausa").style.display = "none";
-  }
+function resetTifo() {
+  socket.emit("resetTimer");
+  document.getElementById("schermo").style.backgroundColor = "transparent";
+  document.getElementById("startTifo").style.display = "none";
+  document.getElementById("resetTifo").style.display = "none";
+  document.getElementById("contTifo").style.display = "none";
+  document.getElementById("abbTifo").style.display = "none";
+  document.getElementsByClassName("iconPausa").style.display = "none";
+}
 
-  function dispPausaSer() {
-    document.getElementById("tutorial").style.display = "none"
-    document.getElementById("schermo").style.backgroundColor = "#877B85";
-    document.getElementById("startTifo").style.display = "block";
-    document.getElementById("resetTifo").style.display = "block";
-    document.getElementById("contTifo").style.display = "block";
-    document.getElementById("abbTifo").style.display = "block";
-    document.getElementsByClassName("iconPausa").style.display = "block";
-  }
+function dispPausaSer() {
+  document.getElementById("tutorial").style.display = "none"
+  document.getElementById("schermo").style.backgroundColor = "#877B85";
+  document.getElementById("startTifo").style.display = "block";
+  document.getElementById("resetTifo").style.display = "block";
+  document.getElementById("contTifo").style.display = "block";
+  document.getElementById("abbTifo").style.display = "block";
+  document.getElementsByClassName("iconPausa").style.display = "block";
+}
 
-  function startTifoSer() {
-    document.getElementById("schermo").style.backgroundColor = "transparent";
-    document.getElementById("startTifo").style.display = "none";
-    document.getElementById("resetTifo").style.display = "none";
-    document.getElementById("contTifo").style.display = "none";
-    document.getElementById("abbTifo").style.display = "none";
-    document.getElementsByClassName("iconPausa").style.display = "none";
-  }
+function startTifoSer() {
+  document.getElementById("schermo").style.backgroundColor = "transparent";
+  document.getElementById("startTifo").style.display = "none";
+  document.getElementById("resetTifo").style.display = "none";
+  document.getElementById("contTifo").style.display = "none";
+  document.getElementById("abbTifo").style.display = "none";
+  document.getElementsByClassName("iconPausa").style.display = "none";
+}
 
-  function resetTifoSer() {
-    document.getElementById("schermo").style.backgroundColor = "transparent";
-    document.getElementById("startTifo").style.display = "none";
-    document.getElementById("resetTifo").style.display = "none";
-    document.getElementById("contTifo").style.display = "none";
-    document.getElementById("abbTifo").style.display = "none";
-    document.getElementsByClassName("iconPausa").style.display = "none";
-  }
+function resetTifoSer() {
+  document.getElementById("schermo").style.backgroundColor = "transparent";
+  document.getElementById("startTifo").style.display = "none";
+  document.getElementById("resetTifo").style.display = "none";
+  document.getElementById("contTifo").style.display = "none";
+  document.getElementById("abbTifo").style.display = "none";
+  document.getElementsByClassName("iconPausa").style.display = "none";
+}
