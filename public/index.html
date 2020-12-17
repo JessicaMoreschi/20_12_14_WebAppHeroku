@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
-  <title>12Uomo</title>
+  <title>12Uomo© | WebApp</title>
   <link href="website.css" rel="stylesheet" type="text/css">
   <script src="/socket.io/socket.io.js"></script>
   <script src="p5.min.js"></script>
@@ -33,23 +33,21 @@
     <div class="team" id="team2">TEAM2</div>
     <div class="maglia"></div>
   </div>
-  <div class="performance">
-    <p id="tm1">PERFORMANCE <b>TM1</b></p>
-    <p id="tm2">PERFORMANCE <b>TM2</b></p>
-  </div>
+  <iframe class="performance" src="./assets/prestazioni/index_prestazioni.html"></iframe>
   <div class="videoBar">
     <button id="startBtn" onclick="startTimer(), emitTimer('startTimer')" > start </button>
     <button id="stopBtn" onclick="stopTimer(), emitTimer('stopTimer')"> stop </button>
     <button id="resetBtn" onclick="resetTimer(), emitTimer('resetTimer')"> reset </button>
     <button id="x" onclick="smallScreen()" style="display:none">x</button>
-    <div id="real"></div>
+    <div id="real" onclick="startTimer(), emitTimer('startTimer')" ></div>
     <div id="large" onclick="fullScreen()"></div>
   </div>
   <div class="statBar">
     <p class="voceStat" onclick="funIframe('/piattaforma/index.html')" id="tifo" style="background: #f9f9f8">TIFO</p>
     <p class="voceStat" onclick="funIframe('statistiche.html')" id="stat" style="background: rgba(214,209,211,0.25); font-weight:bold">STAT</p>
   </div >
-  <div class="videoView" id="videoView"></div>
+  <!-- <div class="videoView" id="videoView"></div> -->
+  <video class="videoView" id="videoView" src='assets/Partita_Tempo1.mp4'> </video>
   <div class="canvasIframe">
   <iframe id="iframe" src="statistiche.html"></iframe>
   </div>

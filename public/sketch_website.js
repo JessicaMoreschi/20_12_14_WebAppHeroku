@@ -8,16 +8,11 @@ var runningTime = 180; //secondi che scorrono
 var thisTime = 180; //secondi allo stopTimer
 var testo = 180; //variabile testo this countdown
 
-var playAllVideo = false; //bouleana play/stop countdown
+
+var bonus_preso = 1;
+var contBonus = 12; //conta quando p_coord arriva a 100
+
 let videoAction;
-let videoActionStart = 180; //inizio video Action
-let videoActionStop = 0; //fine video Action
-let videoGoal;
-let videoGoalStart = 175; //inizio video
-let videoGoalStop = 165; //fine video Goal
-let videoCorner;
-let videoCornerStart = 165; //inizio video
-let videoCornerStop = 150; //fine video Corner
 var myCanvas
 
 
@@ -25,20 +20,17 @@ var myCanvas
 socket.on("startTimer", startTimer); // StartTimer
 socket.on("stopTimer", stopTimer); // StopTimer
 socket.on("resetTimer", resetTimer); // ResetTimer
+// RICEZIONE BONUS
+ socket.on("bonusIn", bonus_server);
 
+ function bonus_server(data){
+     contBonus = data.bonus;
+     bonus_preso = data.b_tot;
+   }
 
 function setup() {
-  myCanvas = createCanvas(windowWidth/100*49.5, windowHeight/100*49.5);
-  myCanvas.parent('videoView');
-  background("#b1a4af");
-
 // SETUP VIDEO
-  videoAction = createVideo('assets/action.mp4');
-  videoAction.hide();
-  videoCorner = createVideo('assets/corner.mp4');
-  videoCorner.hide();
-  videoGoal = createVideo('assets/goal.mp4');
-  videoGoal.hide();
+  videoAction = document.getElementById('videoView');
 }
 
 
@@ -53,26 +45,42 @@ function draw() {
 //EMIT COUNTDOWN
   socket.emit("testoOut", testo);
 
-// DISPLAY VIDEO
-  if (testo < videoActionStart && testo > videoActionStop) {
-    imageMode(CENTER);
-    noStroke();
-    image(videoAction, width/2, height/2, width/10*9.3, height/10*11);
+//EMIT BONUS
+  let message = {
+    bonus: contBonus,
+    b_tot: bonus_preso,
   }
-  if (testo < videoGoalStart && testo > videoGoalStop) {
-    imageMode(CENTER);
-    noStroke();
-    image(videoCorner, width/2, height/2, width/10*9.3, height/10*11);
-  }
-  if (testo < videoCornerStart && testo > videoCornerStop) {
-    imageMode(CENTER);
-    noStroke();
-    image(videoGoal, width/2, height/2, width/10*9.3, height/10*11);
-  }
+    socket.emit("bonusOut",message);
 
-// PLAY/STOP VIDEO
-  toggleVid(); //check funzione play/stop
+//spot
+if (testo == 91) {
+  videoAction.pause();
+  videoAction.setAttribute('src', 'assets/spot.mp4');
+  videoAction.play();
+  document.getElementById('stopBtn').disabled = true;
 }
+
+if (testo == 90) {
+  clearInterval(x); //blocca countdown
+  thisTime = runningTime; //registra secondo allo stop
+  testo = 90; //visualizza secondo allo stop
+  countDown = new Date().getTime() + (thisTime * 1000); //+1000=+1s
+
+  if (videoAction.ended){
+    videoAction.setAttribute('src', 'assets/Partita_Tempo2.mp4');
+    document.getElementById('stopBtn').disabled = false;
+
+    clearInterval(x); //blocca countdown
+    thisTime = 89; //resetta countdown
+    testo = thisTime; //visualizza countdown
+    countDown = new Date().getTime() + (thisTime * 1000); //+1000=+1s
+    startTimer()
+  }
+}
+
+
+}
+
 
 //FUNCTION PLAY-STOP-RESET TIMER
 function startTimer() {
@@ -83,46 +91,22 @@ function startTimer() {
     runningTime = Math.floor((gap / 1000)); // Time calculations for seconds
     testo = runningTime //setta variabile time
   }, 1000);
-  playAllVideo = true; //lega video al timer
+  videoAction.play(); //lega video al timer
 }
 function stopTimer() {
   clearInterval(x); //blocca countdown
   thisTime = runningTime; //registra secondo allo stop
   testo = thisTime; //visualizza secondo allo stop
   countDown = new Date().getTime() + (thisTime * 1000); //+1000=+1s
-  playAllVideo = false; //lega video al timer
+  videoAction.pause(); //lega video al timer
 }
 function resetTimer() {
   clearInterval(x); //blocca countdown
   thisTime = 180; //resetta countdown
   testo = thisTime; //visualizza countdown
   countDown = new Date().getTime() + (thisTime * 1000); //+1000=+1s
-  playAllVideo = false; //lega video al timer
-}
-
-// FUNCTION LINK VIDEO A TIMER
-function toggleVid() {
-  //stop
-  if (playAllVideo == false) {
-    videoAction.pause();
-    videoCorner.pause();
-    videoGoal.pause();
-    //play
-  } else if (playAllVideo == true) {
-    if (testo < videoActionStart && testo > videoActionStop) {
-      videoAction.play();
-    };
-    if ((testo < videoGoalStart && testo > videoGoalStop) ||
-      (testo < videoCornerStart && testo > videoCornerStop)) {
-      videoAction.pause() //videoAction
-    };
-    if (testo < videoGoalStart && testo > videoGoalStop) {
-      videoCorner.play() //videoGoal
-    };
-    if (testo < videoCornerStart && testo > videoCornerStop) {
-      videoGoal.play() //videoCorner
-    };
-  }
+  videoAction.pause(); //lega video al timer
+  videoAction.load();
 }
 
 //FUNCTION IFRAME TIFO/STAT
@@ -145,7 +129,7 @@ function funIframe(url) {
 //FUNCTION SUBMENU STAT
 function funImgLoad(url) {
   document.getElementById("canvasStat").setAttribute("src", url);
-  if (url == "/assets/cronaca.png") {
+  if (url == './assets/cronaca/index_cronaca.html') {
     document.getElementById("cronaca").style.borderBottomWidth = '1.5px';
     document.getElementById("datipartita").style.borderBottomWidth = '0.5px';
     document.getElementById("statistiche").style.borderBottomWidth = '0.5px';
@@ -154,7 +138,7 @@ function funImgLoad(url) {
     document.getElementById("datipartita").style.fontWeight = 'normal';
     document.getElementById("statistiche").style.fontWeight = 'normal';
     document.getElementById("formazione").style.fontWeight = 'normal';
-  } else if (url == "/assets/datipartita.png") {
+  } else if (url == "./assets/datiPartita/index_datiPartita.html") {
     document.getElementById("cronaca").style.borderBottomWidth = '0.5px';
     document.getElementById("datipartita").style.borderBottomWidth = '1.5px';
     document.getElementById("statistiche").style.borderBottomWidth = '0.5px';
@@ -163,7 +147,7 @@ function funImgLoad(url) {
     document.getElementById("datipartita").style.fontWeight = 'bold';
     document.getElementById("statistiche").style.fontWeight = 'normal';
     document.getElementById("formazione").style.fontWeight = 'normal';
-  } else if (url == "/assets/stat.png") {
+  } else if (url == "./assets/statistiche/index_statistiche.html") {
     document.getElementById("cronaca").style.borderBottomWidth = '0.5px';
     document.getElementById("datipartita").style.borderBottomWidth = '0.5px';
     document.getElementById("statistiche").style.borderBottomWidth = '1.5px';
@@ -172,7 +156,7 @@ function funImgLoad(url) {
     document.getElementById("datipartita").style.fontWeight = 'normal';
     document.getElementById("statistiche").style.fontWeight = 'bold';
     document.getElementById("formazione").style.fontWeight = 'normal';
-  } else if (url == "/assets/formazione.png") {
+  } else if (url == './assets/formazione/index_formazione.html') {
     document.getElementById("cronaca").style.borderBottomWidth = '0.5px';
     document.getElementById("datipartita").style.borderBottomWidth = '0.5px';
     document.getElementById("statistiche").style.borderBottomWidth = '0.5px';

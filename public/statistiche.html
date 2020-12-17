@@ -11,18 +11,19 @@
   <script src="p5.min.js"></script>
   <!-- <script src="p5.sound.min.js"></script> -->
   <script src="sketch_website.js"></script>
+  <script src="/assets/datiPartita/sketch_datiPartita.js"></script>
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
-<body>
-  <div class="subStatBar">
-    <p class="subVoceStat" id="cronaca" onclick="funImgLoad('/assets/cronaca.png')">CRONACA</p>
-    <p class="subVoceStat" id="datipartita" onclick="funImgLoad('/assets/datipartita.png')">DATI PARTITA</p>
-    <p class="subVoceStat" id="statistiche" onclick="funImgLoad('/assets/stat.png')">STATISTICHE</p>
-    <p class="subVoceStat" id="formazione" onclick="funImgLoad('/assets/formazione.png')">FORMAZIONE</p>
+<body style="background-color: #f9f9f8">
+  <div class="subStatBar" style="background-color: #f9f9f8">
+    <p class="subVoceStat" id="cronaca" onclick="funImgLoad('./assets/cronaca/index_cronaca.html')">CRONACA</p>
+    <p class="subVoceStat" id="datipartita" onclick="funImgLoad('./assets/datiPartita/index_datiPartita.html')">DATI PARTITA</p>
+    <p class="subVoceStat" id="statistiche" onclick="funImgLoad('./assets/statistiche/index_statistiche.html')">STATISTICHE</p>
+    <p class="subVoceStat" id="formazione" onclick="funImgLoad('./assets/formazione/index_formazione.html')">FORMAZIONE</p>
   </div>
-  <img class="canvasStat" id="canvasStat" src="/assets/cronaca.png">
+  <iframe style="background-color: #f9f9f8" class="canvasStat" id="canvasStat" src='./assets/statistiche/index_statistiche.html'> </iframe>
 </body>
 
 </html>

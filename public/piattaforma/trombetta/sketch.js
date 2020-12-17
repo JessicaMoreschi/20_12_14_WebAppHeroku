@@ -4,6 +4,11 @@ let socket = io(); //setting server
 //Coundown
 var testo = 180; //valore countdown
 
+// variabili BONUS /
+let bonus_preso = 1;
+let contBonus = 4;
+//let contBonusSever;
+
 // let SERIAL
 let serial; // variable to hold an instance of the serialport library
 let portName = '/dev/tty.usbmodem14101'; // fill in your serial port name here
@@ -12,7 +17,7 @@ let portName = '/dev/tty.usbmodem14101'; // fill in your serial port name here
 let inData; // for incoming serial data
 
 //trombetta ICONE
-let trombaIcon, tscuraIcon, tut1Icon, tut2Icon, logor, freccia; //icone
+let trombaIcon, tscuraIcon, tut1Icon, tut2Icon, logor; //icone
 let xBarra = 20; //lunghezza barra %
 let w, h; //posizione
 let s = 0; //ellisse BONUS
@@ -21,10 +26,10 @@ let s = 0; //ellisse BONUS
 let alt = 1; //h dei rettangoli suono
 let i = 0; //regola ogni quanto cambia alt
 let p_coord = 0; //var coordinazione
-let contBonus = 0; //conta quando p_coord arriva a 100
+
 
 let feed_piattaforma = 0; //var piattaforma: quando alt!=1 viene incrementata
-let input_utente = 200 //var utente usa la trobetta, preme bottone
+let input_utente; //var utente usa la trobetta, preme bottone
 
 let opacità = 210 //opacità rettangolo tutorial
 let pronto //coordinzaione tutorial
@@ -33,9 +38,13 @@ let pronto //coordinzaione tutorial
 let daspo = false; //variabile che dice se daspo è attiva in questo momento
 let daspo_counter = 0; //variabile che conta il numero di daspo
 let op = 0; //opacità rettangolo daspo
-let timeout_daspo; //variabile per riavviare la funzione Timeout del daspo
-let daspo_3, daspo_4, daspo_5;
-let gif_daspo;
+let daspo_gif_3, daspo_gif_4, daspo_gif_5;
+let durata_daspo = 0; //durata della daspo
+let secondo_corrente = 0; //secondo dell'inizio daspo
+
+
+let j = 0; //sottomultiplo di i, ogni i è composto da 50 j
+let pulsazione = 0; //variabile per fare pulsare il cerchio della trombetta
 
 
 ////////////////COMUNICAZIONE SERVER/////////////////////////////////////
@@ -47,25 +56,24 @@ socket.on("resetTimer", resetTifoSer);
 
 // UPDATE DA SERVER
 function updateTesto(dataReceived) {
-  console.log(dataReceived);
   testo = dataReceived //assegna a testo dati da server
 }
+// RICEZIONE BONUS
+ socket.on("bonusIn", bonus_server);
 
-////////////////FINE COMUNICAZIONE SERVER/////////////////////////////////////
-
+ function bonus_server(data){
+     contBonus = data.bonus;
+     bonus_preso = data.b_tot;
+   }
 
 /////////////////////////////////////////////////////////////////////////
 
 function preload() {
   trombaIcon = loadImage("./assets/immagini/trombettaB.png"); //trombetta chiara
   tscuraIcon = loadImage("./assets/immagini/trombetta.png"); //trombetta scura
-  tut1Icon = loadImage("./assets/immagini/Tutorial_Trombetta1.png"); //trombetta tutorial 1
-  tut2Icon = loadImage("./assets/immagini/Tutorial_Trombetta2.gif"); //trombetta tutorial 1
+  tut1Icon = loadImage("./assets/immagini/Tutorial_T1.png"); //trombetta tutorial 1
+  tut2Icon = loadImage("./assets/immagini/Tutorial_T2.gif"); //trombetta tutorial 1
   logor = loadImage("./assets/immagini/logopiccolo.png"); //logo ridotto
-  freccia = loadImage("./assets/immagini/freccia.png");
-  daspo_3 = loadImage("./assets/immagini/daspo3.gif");
-  daspo_4 = loadImage("./assets/immagini/daspo4.gif");
-  daspo_5 = loadImage("./assets/immagini/daspo5.gif");
 }
 
 /////////////////////////////////////////////////////////////////////////
@@ -93,10 +101,12 @@ function setup() {
   b2.position(w, h * 4.5);
   b2.mousePressed(dispPausa);
   b2.id('pauseBtn');
+  //contBonus = contBonusSever;
 }
 
 /////////////////////////////////////////////////////////////////////////
 function draw() {
+
   background('#F9F9F9'); //chiaro
   imageMode(CENTER); //per pittogrammi
   noStroke();
@@ -141,30 +151,39 @@ function draw() {
 
   if (p_coord === 80) {
     contBonus++;
+  //EMIT BONUS
+      let message = {
+        bonus: contBonus,
+        b_tot: bonus_preso,
+      }
+        socket.emit("bonusOut",message);
   }
   console.log('BONUS CONTATOR:' + contBonus);
 
   //pallini BONUS
-  for (let i = 0; i < 6; i++) {
-    if (contBonus === 3 || contBonus === 4 || contBonus === 5) {
+  for (let i = 0; i < 6; i++) { // ogni 4 da il bonus
+    if (contBonus === 4 || contBonus === 5 || contBonus === 6 || contBonus === 7) {
       push();
       fill('#877B85');
       ellipse(w, h * 45.5, 15);
       pop();
-    } else if (contBonus === 6 || contBonus === 7 || contBonus === 8) {
+
+    } else if (contBonus === 8 || contBonus === 9 || contBonus === 10 || contBonus === 11) {
       push();
       fill('#877B85');
       ellipse(w, h * 45.5, 15);
       ellipse(w + 25, h * 45.5, 15);
       pop();
-    } else if (contBonus === 9 || contBonus === 10 || contBonus === 11 || contBonus === 12 || contBonus === 13) {
+
+    } else if (contBonus === 12 || contBonus === 13 || contBonus === 14 || contBonus === 15) {
       push();
       fill('#877B85');
       ellipse(w, h * 45.5, 15);
       ellipse(w + 25, h * 45.5, 15);
       ellipse(w + 50, h * 45.5, 15);
       pop();
-    } else if (contBonus === 14 || contBonus === 15 || contBonus === 16 || contBonus === 17 || contBonus === 18) {
+
+    } else if (contBonus === 16 || contBonus === 17 || contBonus === 18 || contBonus === 19) {
       push();
       fill('#877B85');
       ellipse(w, h * 45.5, 15);
@@ -172,7 +191,8 @@ function draw() {
       ellipse(w + 50, h * 45.5, 15);
       ellipse(w + 75, h * 45.5, 15);
       pop();
-    } else if (contBonus === 19 || contBonus === 20 || contBonus === 21) {
+
+    } else if (contBonus === 20 || contBonus === 21 || contBonus === 22 || contBonus === 23) {
       push();
       fill('#877B85');
       ellipse(w, h * 45.5, 15);
@@ -181,24 +201,31 @@ function draw() {
       ellipse(w + 75, h * 45.5, 15);
       ellipse(w + 100, h * 45.5, 15);
       pop();
-    } else if (contBonus === 22) {
+
+    } else if (contBonus === 24) {
+      contBonus = 0; //azzerare i bonus
+      bonus_preso = 1; //per dire che hai completato una fascia di bonus
       window.open('../bonus-app12uomo/index.html', '_self'); //doppio puntino per andare nella cartella sopra
     }
     ellipse(w + s, h * 45.5, 15);
     s = 25 * i;
   }
+
   ///////////////////////////////////////////////////////////////
 
   //CONTATORE i DEL TEMPO
-  if (frameCount % 50 == 0) { //multiplo di 50 incrementa i
+  j++;
+  if (frameCount % 40 == 0) { //multiplo di 50 incrementa i
     i++;
+    j = 0;
   }
 
   // BARRETTE FEED UTENTE (LINETTE)
   for (var x = w * 3.8; x < w * 8.8; x += 40) {
     if (keyIsDown(ENTER)) {
       alt = 1 * random(1, 8.5);
-      input_utente = 200;
+      input_utente = 250;
+      pulsazione=0;
     } else {
       alt = 1;
       input_utente = 0;
@@ -226,8 +253,23 @@ function draw() {
 
   textSize(16);
   fill('#B7AEB5'); //3 PALETTE
+
   //ICONA FEEDBACK DA SEGUIRE
-  if (i % 2 != 0 && i > 5) {
+  if (i % 2 != 0 && i > 3) {
+
+    if (j == 0 || j == 25 || j == 50) { //pulsazioni del cerchio
+      pulsazione = 0
+    } else if (j < 12 || j > 25 && j < 37) {
+      pulsazione += 4;
+    } else if (j > 12 && j < 25 || j > 37 && j < 50) {
+      pulsazione -= 4;
+    }
+    push()
+    noStroke()
+    fill("#E5E5E5")
+    ellipse(width / 2, height / 2, 100 + pulsazione)
+    pop()//fine puslazioni cerchio
+
     push();
     fill('#877B85');
     noStroke();
@@ -236,7 +278,7 @@ function draw() {
     image(trombaIcon, width / 2, height / 2, trombaIcon.width / 1.7, trombaIcon.height / 1.7);
     pop();
     feed_piattaforma++;
-  } else if (i % 2 == 0 && i > 5) { //cambio colore delle bottone centrale: feedback utente
+  } else if (i % 2 == 0 && i > 3) { //cambio colore delle bottone centrale: feedback utente
     push();
     fill('#F9F9F9');
     stroke('#877B85');
@@ -253,13 +295,13 @@ function draw() {
   fill(255, 255, 255, opacità);
   rect(0, 0, width, height);
   //rettangolo diventta trasparente alla fine del tutorial
-  if (i > 5) {
+  if (i > 3) {
     opacità = 0
   }
   pop();
 
   //TUTORIAL TROMBETTA + TESTI GIUSTO/SBAGLATO
-  if (i == 0 || i == 2 || i == 4) {
+  if (i == 0 || i == 2 ) {
     image(tut1Icon, w * 10, h * 24.5, tut1Icon.width / 5.5, tut1Icon.height / 5.5);
     tut2Icon.reset();
     text('Segui il ritmo degli altri', w * 10, h * 31);
@@ -267,7 +309,7 @@ function draw() {
     if (keyIsDown(ENTER)) {
       text('NON COORDINATO', w * 10, h * 33);
     }
-  } else if (i == 1 || i == 3 || i == 5) {
+  } else if (i == 1 || i == 3) {
     image(tut2Icon, w * 10, h * 24.5, tut2Icon.width / 5.5, tut2Icon.height / 5.5);
     text('Segui il ritmo degli altri', w * 10, h * 31);
     let pronto = true;
@@ -277,73 +319,84 @@ function draw() {
     }
   }
 
-  //DASPO
+  //////DASPO
+
   //daspo condizione
-  if (keyIsDown(ENTER) && i % 2 == 0 && i > 5) {
+  if (keyIsDown(ENTER) && i % 2 == 0 && i > 5 && j > 10 && daspo == false) {
     daspo = true;
     daspo_counter++;
-  } else if (keyIsDown(ENTER) && i % 2 != 0 && i > 5 && daspo != true) {
-    daspo = false;
-    op = 0;
+    secondo_corrente = testo;
   }
 
-  //attivare funzioni daspo
-  if (daspo == true) {
-    daspoAttiva();
-  }
-
-  incremento_daspo = 3000 + daspo_counter * 1000;
-  if (incremento_daspo > 5000) {
-    incremento_daspo = 5000;
-  }
-
-  console.log("tempo daspo " + incremento_daspo)
-
-  ///////cambio cartella //////////////////////////////////////////////////
-  if (i == 30) {
-    window.open('../indexPausa.html', '_self'); //doppio puntino per andare nella cartella sopra
-  }
-  //////////////////////////////////////////////////////////////////
-
-
-}
-///////FINE DRAW/////////////////
-
-//funzioni per attivare la daspo
-function daspoAttiva() {
-  op = 210;
-  alt = 1;
-
+  //rettangolo in poacità per la daspo
   push();
   rectMode(CORNER);
   fill(255, 255, 255, op);
   rect(0, 0, width, height);
   pop();
 
-  if (incremento_daspo == 3000) {
-    gif_daspo = daspo_3
-  } else if (incremento_daspo == 4000) {
-    gif_daspo = daspo_4
-  } else if (incremento_daspo == 5000) {
-    gif_daspo = daspo_5
+  //gif diverse per durate diverse
+  if (!daspo_gif_3) {
+    daspo_gif_3 = createImg("./assets/immagini/daspo3.gif");
+    daspo_gif_3.hide();
+  }
+
+  if (!daspo_gif_4) {
+    daspo_gif_4 = createImg("./assets/immagini/daspo4.gif");
+    daspo_gif_4.hide();
+  }
+
+  if (!daspo_gif_5) {
+    daspo_gif_5 = createImg("./assets/immagini/daspo5.gif");
+    daspo_gif_5.hide();
+  }
+
+  //quando daspo==true fa partire la daspo giusta in base al numero di daspo
+  if (daspo == true) {
+    op = 210;
+    alt = 1;
+
+    if (daspo_counter == 1) {
+      durata_daspo = 3;
+      daspo_gif_3.show();
+      daspo_gif_3.size(150, AUTO);
+      daspo_gif_3.position(width / 20, 3 * height / 4);
+    } else if (daspo_counter == 2) {
+      durata_daspo = 4;
+      daspo_gif_4.show();
+      daspo_gif_4.size(150, AUTO);
+      daspo_gif_4.position(width / 20, 3 * height / 4);
+    } else if (daspo_counter > 2) {
+      durata_daspo = 5;
+      daspo_gif_5.show();
+      daspo_gif_5.size(150, AUTO);
+      daspo_gif_5.position(width / 20, 3 * height / 4);
+    }
+  }
+
+  //chiusur daspo dopo tot secondi
+  if (daspo == true && testo == secondo_corrente - durata_daspo) {
+    op = 0;
+    daspo = false;
+    if (daspo_counter == 1) {
+      daspo_gif_3.hide();
+    } else if (daspo_counter == 2) {
+      daspo_gif_4.hide();
+    } else if (daspo_counter > 2) {
+      daspo_gif_5.hide();
+    }
   }
 
 
-  // image(gif_daspo, width / 10, 3*height / 4, gif_daspo.width/2 , gif_daspo.height/2 );
-  image(daspo_3, width / 10, 3 * height / 4, daspo_3.width / 2, daspo_3.height / 2);
+  ///////cambio cartella //////////////////////////////////////////////////
+  if (i == 15) {
+    window.open('../indexPausa.html', '_self'); //doppio puntino per andare nella cartella sopra
+  }
+  //////////////////////////////////////////////////////////////////
 
-  timeout_daspo = setTimeout(daspoNonAttiva, 3000);
 }
+///////FINE DRAW/////////////////
 
-//funzione per disattivare la daspo cambiando la variabile
-function daspoNonAttiva() {
-  daspo = false;
-}
-
-//riavvia il timer per daspo
-function nonAttivafine() {
-  clearTimeout(timeout_daspo);
-}
 
 
 // function SERIAL
