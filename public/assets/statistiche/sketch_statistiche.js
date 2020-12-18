@@ -177,67 +177,65 @@ function draw() {
 
 
   //update
-  if (testo<8){
-    golTM1 = 1;
+  if (testo < 8) {
+  golTM1 = 1;
+}
+if (testo > 165) {
+  if (pvTM1 > 70) {
+    pvTM1 -= 0.03;
+    pvTM1R = round(pvTM1)
   }
-  if (testo<180&&testo>165) {
-    if (pvTM1>70) {
-      pvTM1-=0.03;
-      pvTM1R=round(pvTM1)
-    }
-  } else if (testo<165&&testo>153) {
-    if (pvTM1<80) {
-      pvTM1+=0.03;
-      pvTM1R=round(pvTM1)
-    }
-  } else if (testo<153&&testo>145) {
-    if (pvTM1>70) {
-      pvTM1-=0.03;
-      pvTM1R=round(pvTM1)
-    }
-  } else if (testo<145&&testo>141) {
-    if (pvTM1<75) {
-      pvTM1+=0.03;
-      pvTM1R=round(pvTM1)
-    }
-  } else if (testo<141&&testo>123) {
-    if (pvTM1>60) {
-      pvTM1-=0.03;
-      pvTM1R=round(pvTM1)
-    }
-  } else if (testo<123&&testo>104) {
-    if (pvTM1<75) {
-      pvTM1+=0.03;
-      pvTM1R=round(pvTM1)
-    }
-  } else if (testo<104&&testo>84) {
-    if (pvTM1>65) {
-      pvTM1-=0.03;
-      pvTM1R=round(pvTM1)
-    }
-  } else if (testo<84&&testo>36) {
-    if (pvTM1<85) {
-      pvTM1+=0.03;
-      pvTM1R=round(pvTM1)
-    }
-  } else if (testo<36&&testo>23) {
-    if (pvTM1>80) {
-      pvTM1-=0.03;
-      pvTM1R=round(pvTM1)
-    }
-  } else if (testo<23&&testo>9) {
-    if (pvTM1<90) {
-      pvTM1+=0.03;
-      pvTM1R=round(pvTM1)
-    }
-  } else if (testo<9&&testo>0) {
-    if (pvTM1<100) {
-      pvTM1+=0.03;
-      pvTM1R=round(pvTM1)
-    }
+} else if (testo > 153) {
+  if (pvTM1 < 80) {
+    pvTM1 += 0.03;
+    pvTM1R = round(pvTM1)
   }
-
-
+} else if (testo > 145) {
+  if (pvTM1 > 70) {
+    pvTM1 -= 0.03;
+    pvTM1R = round(pvTM1)
+  }
+} else if (testo > 141) {
+  if (pvTM1 < 75) {
+    pvTM1 += 0.03;
+    pvTM1R = round(pvTM1)
+  }
+} else if (testo > 123) {
+  if (pvTM1 > 60) {
+    pvTM1 -= 0.03;
+    pvTM1R = round(pvTM1)
+  }
+} else if (testo > 104) {
+  if (pvTM1 < 75) {
+    pvTM1 += 0.03;
+    pvTM1R = round(pvTM1)
+  }
+} else if (testo > 84) {
+  if (pvTM1 > 65) {
+    pvTM1 -= 0.03;
+    pvTM1R = round(pvTM1)
+  }
+} else if (testo > 36) {
+  if (pvTM1 < 85) {
+    pvTM1 += 0.03;
+    pvTM1R = round(pvTM1)
+  }
+} else if (testo > 23) {
+  if (pvTM1 > 80) {
+    pvTM1 -= 0.03;
+    pvTM1R = round(pvTM1)
+  }
+} else if (testo > 9) {
+  if (pvTM1 < 90) {
+    pvTM1 += 0.03;
+    pvTM1R = round(pvTM1)
+  }
+} else if (testo > 0) {
+  if (pvTM1 < 100) {
+    pvTM1 += 0.03;
+    pvTM1R = round(pvTM1)
+  }
+}
 }
 
 function windowResized() {

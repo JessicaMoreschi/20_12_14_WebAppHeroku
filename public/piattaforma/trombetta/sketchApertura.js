@@ -17,7 +17,6 @@ function updateTesto(dataReceived) {
   testo = dataReceived //assegna a testo dati da server
 }
 /////////////////////////////////////////////////////////////////////////
-
 function preload() {
   logoIcon = loadImage("./assets/immagini/logopausa.png");
   tIcon = loadImage("./assets/immagini/trombetta.png"); //trombetta chiara
@@ -55,9 +54,7 @@ function draw() {
   fill('#B7AEB5'); //3 PALETTE
   text('PREPARATI A TIFARE', width / 2, height / 6*5.1 );
 
-if(testo == 153||testo == 154){
-   window.open('index.html','_self');
-} else if(testo == 58||testo < 58 ){
+if(testo == 156 || testo < 156){
    window.open('index.html','_self');
 }
 

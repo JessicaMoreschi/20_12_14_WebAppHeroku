@@ -47,6 +47,7 @@ let secondo_corrente = 0; //secondo dell'inizio daspo
 let j = 0; //sottomultiplo di i, ogni i è composto da 50 j
 let pulsazione = 0; //variabile per fare pulsare il cerchio della trombetta
 
+//let p_e1,p_e2
 ////////////////COMUNICAZIONE SERVER/////////////////////////////////////
 // RICEZIONE
 socket.on("testoIn", updateTesto); //ricezione countdown
@@ -81,9 +82,6 @@ function preload() {
   baloon_Puntini = loadImage("./assets/scuro.gif"); //nuvoletta pensa
   noParola = loadImage("./assets/noParola.png"); //nuvoletta attiva
   logor = loadImage("./assets/logopiccolo.png") //logo ridotto
-  // daspo_3 = loadImage("./assets/daspo3.gif");
-  // daspo_4 = loadImage("./assets/daspo4.gif");
-  // daspo_5 = loadImage("./assets/daspo5.gif");
 }
 
 ////////////setup/////////////////////////////////////////////////////////////
@@ -113,6 +111,7 @@ function setup() {
 /////////////////////////////////////////////////////////////////////////////
 
 function draw() {
+
   background('#F9F9F9'); //chiaro
   imageMode(CENTER); //per pittogrammi
   noStroke();
@@ -149,43 +148,27 @@ function draw() {
   //width/7 è la metà della barra, che è lunga width/3.5
   rect(w * 10 - width / 7, h * 45.5 - 7.5, xBarra, 15, 20);
   pop();
-  ///////cambio cartella //////////////////////////////////////////////////
-  if (testo == 100) {
-    window.open('../indexPausa.html', '_self'); //doppio puntino per andare nella cartella sopra
-  } else if (testo == 2 || testo < 2) {
-    window.open('../indexPausa.html', '_self'); //doppio puntino per andare nella cartella sopra
-  }
-  //////////////////////////////////////////////////////////////////
 
-  ///////////////BONUS//////////////////////////////////////////////////////////////
-  //pallini BONUS
+///////////////BONUS/////////////////////////////////////////////////////////////
+//pallini BONUS
+  for (let i = 0; i < 4; i++) {
+      ellipse(w + s, h * 45.5, 15);
+      s = 25 * i;
 
-  if (p_coord > 60) {
-    contBonus += 4;
-    //EMIT BONUS
-    let message = {
-      bonus: contBonus,
-      b_tot: bonus_preso,
-    }
-    socket.emit("bonusOut", message);
-  }
-
-  //pallini BONUS
-  for (let i = 0; i < 6; i++) { // ogni 4 da il bonus
-    if (contBonus === 4 || contBonus === 5 || contBonus === 6 || contBonus === 7) {
+    if (contBonus === 1 ) {
       push();
       fill('#877B85');
       ellipse(w, h * 45.5, 15);
       pop();
 
-    } else if (contBonus === 8 || contBonus === 9 || contBonus === 10 || contBonus === 11) {
+    } else if (contBonus === 2 ) {
       push();
       fill('#877B85');
       ellipse(w, h * 45.5, 15);
       ellipse(w + 25, h * 45.5, 15);
       pop();
 
-    } else if (contBonus === 12 || contBonus === 13 || contBonus === 14 || contBonus === 15) {
+    } else if (contBonus === 3 ) {
       push();
       fill('#877B85');
       ellipse(w, h * 45.5, 15);
@@ -193,7 +176,7 @@ function draw() {
       ellipse(w + 50, h * 45.5, 15);
       pop();
 
-    } else if (contBonus === 16 || contBonus === 17 || contBonus === 18 || contBonus === 19) {
+    } else if (contBonus === 4 ) {
       push();
       fill('#877B85');
       ellipse(w, h * 45.5, 15);
@@ -202,22 +185,9 @@ function draw() {
       ellipse(w + 75, h * 45.5, 15);
       pop();
 
-    } else if (contBonus === 20 || contBonus === 21 || contBonus === 22 || contBonus === 23) {
-      push();
-      fill('#877B85');
-      ellipse(w, h * 45.5, 15);
-      ellipse(w + 25, h * 45.5, 15);
-      ellipse(w + 50, h * 45.5, 15);
-      ellipse(w + 75, h * 45.5, 15);
-      ellipse(w + 100, h * 45.5, 15);
-      pop();
-
-    } else if (contBonus === 24) {
-      window.open('../bonus/index.html', '_self'); //doppio puntino per andare nella cartella sopra
+    } else if (contBonus === 5 ) {
+      window.open('../bonus/index.html', '_self');
     }
-
-    ellipse(w + s, h * 45.5, 15);
-    s = 25 * i;
   }
 
   /////////////////// LA PARTE SOPRA è STANDARD ///////////////////////////////////////////////
@@ -334,12 +304,28 @@ function draw() {
   if (input_utente == 1 && i > i_ritardo + 1) {
     p_coord = round(random(10, 80));
     input_utente = 0;
+    if (p_coord > 55) {
+      contBonus ++;
+
+      //EMIT BONUS
+      let message = {
+        bonus: contBonus,
+        b_tot: bonus_preso,
+      }
+      socket.emit("bonusOut", message);
+    }
   }
 
   if (i > i_ritardo + 2) {
     window.open('../indexPausa.html', '_self'); //doppio puntino per andare nella cartella sopra
   }
-
+  ///////cambio cartella //////////////////////////////////////////////////
+  if (testo == 100 || (testo < 99  && testo > 80) ) {
+    window.open('../indexPausa.html', '_self'); //doppio puntino per andare nella cartella sopra
+  } else if (testo == 6 || testo < 6) {
+    window.open('../indexPausa.html', '_self'); //doppio puntino per andare nella cartella sopra
+  }
+  
   push();
   textAlign(CORNER);
   fill('#B7AEB5'); //3° PALETTE
@@ -354,7 +340,7 @@ function draw() {
 
   //DASPO
   //daspo condizione
-  if (vol_1 > 30 && i > 1 && daspo == false) {
+  if (vol_1 > 50 && i > 1 && daspo == false) {
     daspo = true;
     daspo_counter++;
     secondo_corrente = testo;

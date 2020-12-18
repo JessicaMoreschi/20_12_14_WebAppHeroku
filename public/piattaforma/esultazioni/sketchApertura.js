@@ -31,8 +31,8 @@ function setup() {
 function draw() {
   background('#F9F9F9'); //chiaro
   imageMode(CENTER); //per pittogrammi
-  image(logoIcon,  width/2 , height / 2, logoIcon.width/7, logoIcon.height/7);
-  image(icon, width / 2, height / 6*4.5, icon.width / 6, icon.height /6);
+  image(logoIcon, width / 2, height / 2, logoIcon.width / 7, logoIcon.height / 7);
+  image(icon, width / 2, height / 6 * 4.5, icon.width / 6, icon.height / 6);
 
 
 
@@ -44,17 +44,17 @@ function draw() {
   //testo centrale
   textSize(15);
   fill('#877B85'); //4° colore PALETTE
-  text('ESULTAZIONI', width / 2, height / 6*4.9);
+  text('ESULTAZIONI', width / 2, height / 6 * 4.9);
   textSize(13);
   fill('#B7AEB5'); //3 PALETTE
-  text('PREPARATI A TIFARE', width / 2, height / 6*5.1 );
+  text('PREPARATI A TIFARE', width / 2, height / 6 * 5.1);
 
 
-if(testo == 126){
-     window.open('index.html','_self');
-  } else if(testo == 8 || testo<8){
-   window.open('index.html','_self');
-}
+  if (testo == 126 || (testo < 126 && testo > 40)) {
+    window.open('index.html', '_self');
+  } else if (testo == 14 || testo < 14) {
+    window.open('index.html', '_self');
+  }
 }
 
 ///////COMANDI PAUSA-STOP-RESET/////////////////////////////////////////////////////

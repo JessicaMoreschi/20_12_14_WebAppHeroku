@@ -5,8 +5,8 @@ let socket = io(); //setting server
 var testo = 180; //valore countdown
 
 // variabili BONUS /
-let bonus_preso = 1;
-let contBonus = 4;
+let bonus_preso = 0;
+let contBonus = 0;
 //let contBonusSever;
 
 // let SERIAL
@@ -166,52 +166,43 @@ function draw() {
     }
     socket.emit("bonusOut", message);
   }
-  console.log('BONUS CONTATOR:' + contBonus);
+  //console.log('BONUS CONTATOR:' + contBonus);
 
   //pallini BONUS
-  for (let i = 0; i < 6; i++) { // ogni 4 da il bonus
-    if (contBonus === 4 || contBonus === 5 || contBonus === 6 || contBonus === 7) {
+  for (let i = 0; i < 4; i++) {
+
+    if (contBonus === 1 ) {
       push();
       fill('#877B85');
       ellipse(w, h * 45.5, 15);
       pop();
 
-    } else if (contBonus === 8 || contBonus === 9 || contBonus === 10 || contBonus === 11) {
-      push();
-      fill('#877B85');
-      ellipse(w, h * 45.5, 15);
-      ellipse(w + 25, h * 45.5, 15);
-      pop();
-
-    } else if (contBonus === 12 || contBonus === 13 || contBonus === 14 || contBonus === 15) {
+    } else if (contBonus === 2 ) {
       push();
       fill('#877B85');
       ellipse(w, h * 45.5, 15);
       ellipse(w + 25, h * 45.5, 15);
-      ellipse(w + 50, h * 45.5, 15);
       pop();
 
-    } else if (contBonus === 16 || contBonus === 17 || contBonus === 18 || contBonus === 19) {
+    } else if (contBonus === 3 ) {
       push();
       fill('#877B85');
       ellipse(w, h * 45.5, 15);
       ellipse(w + 25, h * 45.5, 15);
       ellipse(w + 50, h * 45.5, 15);
-      ellipse(w + 75, h * 45.5, 15);
       pop();
 
-    } else if (contBonus === 20 || contBonus === 21 || contBonus === 22 || contBonus === 23) {
+    } else if (contBonus === 4 ) {
       push();
       fill('#877B85');
       ellipse(w, h * 45.5, 15);
       ellipse(w + 25, h * 45.5, 15);
       ellipse(w + 50, h * 45.5, 15);
       ellipse(w + 75, h * 45.5, 15);
-      ellipse(w + 100, h * 45.5, 15);
       pop();
 
-    } else if (contBonus === 24) {
-      window.open('../bonus/index.html', '_self'); //doppio puntino per andare nella cartella sopra
+    } else if (contBonus === 5 ) {
+      window.open('../bonus/index.html', '_self');
     }
     ellipse(w + s, h * 45.5, 15);
     s = 25 * i;
@@ -398,9 +389,7 @@ function draw() {
   console.log("daspo totale " + daspo_counter);
 
   ///////cambio cartella //////////////////////////////////////////////////
-  if (testo == 133) {
-    window.open('../indexPausa.html', '_self'); //doppio puntino per andare nella cartella sopra
-  } else if (testo == 26 || testo < 26) {
+  if (testo == 133 || testo < 133) {
     window.open('../indexPausa.html', '_self'); //doppio puntino per andare nella cartella sopra
   }
   //////////////////////////////////////////////////////////////////

@@ -10,7 +10,7 @@ var testo = 180; //variabile testo this countdown
 
 
 var bonus_preso = 0;
-var contBonus = 22; //conta quando p_coord arriva a 100
+var contBonus = 0; //conta quando p_coord arriva a 100
 
 
 var daspo_counter = 0;

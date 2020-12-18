@@ -37,7 +37,7 @@ function preload() {
 /////////////////////////////////////////////////////////////////////////
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  frameRate(12); //rallenta
+  frameRate(20); //rallenta
 
 }
 /////////////////////////////////////////////////////////////////////////
@@ -55,11 +55,9 @@ function draw() {
       if (frameCount % 50 == 0) { //multiplo di 50 incrementa i
         i++;
       }
-///////cambio cartella //////////////////////////////////////////////////
-if(i = 15 ){
-         window.open('../indexPausa.html', '_self');
-       }
-
+  if(i == 1 ){
+           window.open('../indexPausa.html', '_self');
+         }
   background('#887b86');//scuro
   imageMode(CENTER); //per pittogrammi
   w = width / 20;
@@ -108,13 +106,14 @@ pop();
   ellipseMode(CENTER)
   noStroke();
   fill('#d6d1d3');
-  for (let i = 0; i < 6; i++) {
-        ellipse(w*9 + s, h * 42, 15);
+  for (let i = 0; i < 4; i++) {
+        ellipse(w*9.4 + s, h * 42, 15);
     s = 30 * i;
   }
 
 }
 
+///////cambio cartella //////////////////////////////////////////////////
 
 
 function windowResized() {

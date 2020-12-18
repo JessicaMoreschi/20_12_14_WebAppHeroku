@@ -93,84 +93,213 @@ function draw() {
   }else {
     nullgolTM2 = golTM2
   };
-
-  //update
-  if (testo<180&&testo>165) {
-    if (ppTM1>0) {
-      ppTM1-=0.03;
-      ppTM1R=round(ppTM1)
-    }
-  } else if (testo<165&&testo>153) {
-    if (ppTM1<30) {
-      ppTM1+=0.03;
-      ppTM1R=round(ppTM1);
-    } if (prTM1<1) {
-      prTM1++
-    }
-  } else if (testo<153&&testo>145) {
-    if (ppTM1>20) {
-      ppTM1-=0.03;
-      ppTM1R=round(ppTM1)
-    }if (prTM2<1) {
-      prTM2++
-    }
-  } else if (testo<145&&testo>141) {
-    if (ppTM1<25) {
-      ppTM1+=0.03;
-      ppTM1R=round(ppTM1)
-    }if (prTM1<2) {
-      prTM1++
-    }
-  } else if (testo<141&&testo>123) {
-    if (ppTM1>10) {
-      ppTM1-=0.03;
-      ppTM1R=round(ppTM1)
-    }if (prTM2<2) {
-      prTM2++
-    }
-  } else if (testo<123&&testo>104) {
-    if (ppTM1<30) {
-      ppTM1+=0.03;
-      ppTM1R=round(ppTM1)
-    }if (prTM1<3) {
-      prTM1++
-    }
-  } else if (testo<104&&testo>84) {
-    if (ppTM1>20) {
-      ppTM1-=0.03;
-      ppTM1R=round(ppTM1)
-    }if (prTM2<3) {
-      prTM2++
-    }
-  } else if (testo<84&&testo>36) {
-    if (ppTM1<40) {
-      ppTM1+=0.03;
-      ppTM1R=round(ppTM1)
-    }if (prTM1<4) {
-      prTM1++
-    }
-  } else if (testo<36&&testo>23) {
-    if (ppTM1>35) {
-      ppTM1-=0.03;
-      ppTM1R=round(ppTM1)
-    }if (prTM2<4) {
-      prTM2++
-    }
-  } else if (testo<23&&testo>9) {
-    if (ppTM1<60) {
-      ppTM1+=0.03;
-      ppTM1R=round(ppTM1)
-    }if (prTM1<5) {
-      prTM1++
-    }
-  } else if (testo<9&&testo>0) {
-    if (ppTM1<57) {
-      ppTM1+=0.03;
-      ppTM1R=round(pvTM1)
-    }if (prTM2<5) {
-      prTM2++
-    }
+//update
+if (testo > 167) {
+  if (ppTM1 > 0) {
+    ppTM1 -= 0.03;
+    ppTM1R = round(ppTM1)
   }
+} else if (testo > 155) {
+  if (ppTM1 < 30) {
+    ppTM1 += 0.03;
+    ppTM1R = round(ppTM1);
+  }
+  if (prTM1 < 1) {
+    prTM1++
+  }
+} else if (testo > 145) {
+  if (ppTM1 > 20) {
+    ppTM1 -= 0.03;
+    ppTM1R = round(ppTM1)
+  }
+  if (prTM1 < 1) {
+    prTM1++
+  }
+  if (prTM2 < 1) {
+    prTM2++
+  }
+} else if (testo > 141) {
+  if (ppTM1 < 25) {
+    ppTM1 += 0.03;
+    ppTM1R = round(ppTM1)
+  }
+  if (prTM1 < 2) {
+    prTM1++
+  }
+  if (prTM2 < 1) {
+    prTM2++
+  }
+} else if (testo > 126) {
+  if (ppTM1 > 10) {
+    ppTM1 -= 0.03;
+    ppTM1R = round(ppTM1)
+  }
+  if (prTM1 < 2) {
+    prTM1++
+  }
+  if (prTM2 < 2) {
+    prTM2++
+  }
+} else if (testo > 108) {
+  if (ppTM1 < 30) {
+    ppTM1 += 0.03;
+    ppTM1R = round(ppTM1)
+  }
+  if (prTM1 < 3) {
+    prTM1++
+  }
+  if (ttTM2 < 1) {
+    ttTM2++
+  }
+  if (prTM2 < 2) {
+    prTM2++
+  }
+} else if (testo > 87) {
+  if (ppTM1 > 20) {
+    ppTM1 -= 0.03;
+    ppTM1R = round(ppTM1)
+  }
+  if (prTM1 < 3) {
+    prTM1++
+  }
+  if (prTM2 < 3) {
+    prTM2++
+  }
+  if (ttTM2 < 1) {
+    ttTM2++
+  }
+  if (corTM2 < 1) {
+    corTM2++
+  }
+} else if (testo > 63) {
+  if (prTM1 < 4) {
+    prTM1++
+  }
+  if (prTM2 < 3) {
+    prTM2++
+  }
+  if (ttTM2 < 1) {
+    ttTM2++
+  }
+  if (corTM2 < 1) {
+    corTM2++
+  }
+} else if (testo > 76) {
+  if (prTM1 < 4) {
+    prTM1++
+  }
+  if (ttTM1 < 1) {
+    ttTM1++
+  }
+  if (ttTM2 < 1) {
+    ttTM2++
+  }
+  if (corTM2 < 1) {
+    corTM2++
+  }
+  if (prTM2 < 3) {
+    prTM2++
+  }
+} else if (testo > 49) {
+  if (ppTM1 < 40) {
+    ppTM1 += 0.03;
+    ppTM1R = round(ppTM1)
+  }
+  if (prTM1 < 5) {
+    prTM1++
+  }
+  if (prTM2 < 3) {
+    prTM2++
+  }
+  if (ttTM1 < 1) {
+    ttTM1++
+  }
+  if (ttTM2 < 1) {
+    ttTM2++
+  }
+  if (corTM2 < 1) {
+    corTM2++
+  }
+} else if (testo > 52) {
+  if (prTM1 < 5) {
+    prTM1++
+  }
+  if (prTM2 < 3) {
+    prTM2++
+  }
+  if (ttTM1 < 2) {
+    ttTM1++
+  }
+  if (ttTM2 < 1) {
+    ttTM2++
+  }
+  if (corTM2 < 1) {
+    corTM2++
+  }
+} else if (testo > 30) {
+  if (ppTM1 > 35) {
+    ppTM1 -= 0.03;
+    ppTM1R = round(ppTM1)
+  }
+  if (prTM1 < 5) {
+    prTM1++
+  }
+  if (prTM2 < 4) {
+    prTM2++
+  }
+  if (ttTM1 < 2) {
+    ttTM1++
+  }
+  if (ttTM2 < 1) {
+    ttTM2++
+  }
+  if (corTM2 < 1) {
+    corTM2++
+  }
+} else if (testo > 6) {
+  if (ppTM1 < 60) {
+    ppTM1 += 0.03;
+    ppTM1R = round(ppTM1)
+  }
+  if (prTM1 < 6) {
+    prTM1++
+  }
+  if (prTM2 < 4) {
+    prTM2++
+  }
+  if (ttTM1 < 2) {
+    ttTM1++
+  }
+  if (ttTM2 < 2) {
+    ttTM2++
+  }
+  if (corTM2 < 1) {
+    corTM2++
+  }
+} else if (testo > 0) {
+  if (ppTM1 < 57) {
+    ppTM1 += 0.03;
+    ppTM1R = round(pvTM1)
+  }
+  if (prTM1 < 6) {
+    prTM1++
+  }
+  if (prTM2 < 5) {
+    prTM2++
+  }
+  if (ttTM1 < 3) {
+    ttTM1++
+  }
+  if (golTM1 < 1) {
+    golTM1++
+  }
+  if (ttTM2 < 2) {
+    ttTM2++
+  }
+  if (corTM2 < 1) {
+    corTM2++
+  }
+}
 
   push();
   textFont('Quicksand', BOLD);
