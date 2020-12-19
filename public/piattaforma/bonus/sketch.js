@@ -56,8 +56,12 @@ function draw() {
         i++;
       }
   if(i == 1 ){
-           window.open('../indexPausa.html', '_self');
-         }
+    if(testo > 30 && testo <86){
+      window.open('../trombetta/indexApertura.html', '_self'); 
+    }else{
+     window.open('../indexPausa.html', '_self');
+    }
+   }
   background('#887b86');//scuro
   imageMode(CENTER); //per pittogrammi
   w = width / 20;

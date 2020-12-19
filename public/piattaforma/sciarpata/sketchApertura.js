@@ -29,10 +29,10 @@ function setup() {
 }
 /////////////////////////////////////////////////////////////////////////
 function draw() {
-
-  if(testo == 86 || testo < 86){
+  if(testo == 163 || testo < 163){
      window.open('index.html','_self');
   }
+
   background('#F9F9F9'); //chiaro
   imageMode(CENTER); //per pittogrammi
   image(logoIcon,  width/2 , height / 2, logoIcon.width/7, logoIcon.height/7);

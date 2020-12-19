@@ -20,12 +20,12 @@ function updateTesto(dataReceived) {
   testo = dataReceived //assegna a testo dati da server
 }
 // RICEZIONE BONUS
- socket.on("bonusIn", bonus_server);
+socket.on("bonusIn", bonus_server);
 
- function bonus_server(data){
-     contBonus = data.bonus;
-     bonus_preso = data.b_tot;
-   }
+function bonus_server(data) {
+  contBonus = data.bonus;
+  bonus_preso = data.b_tot;
+}
 /////////////////////////////////////////////////////////////////////////
 
 function preload() {
@@ -47,26 +47,26 @@ function draw() {
     i++;
   }
   //if (mouseIsPressed) {
-    if (testo == 158) {
-      window.open('trombetta/indexApertura.html', '_self');
-    } else if (testo == 128) {
-      window.open('esultazioni/indexApertura.html', '_self');
-    } else if (testo == 89) {
-      window.open('sciarpata/indexApertura.html', '_self');
-    } else if (testo == 16) {
-      window.open('esultazioni/indexApertura.html', '_self');
-    }else if (testo == "finish") {
-      window.open('pagellino/index.html', '_self');
-    }
+  if (testo == 165 || testo == 164 || testo == 163) {
+    window.open('sciarpata/indexApertura.html', '_self');
+  } else if (testo == 128 || testo == 127 || testo == 126) {
+    window.open('esultazioni/indexApertura.html', '_self');
+  } else if (testo == 89 || testo == 88 || testo == 87) {
+    window.open('trombetta/indexApertura.html', '_self');
+  } else if (testo == 16 || testo == 15 || testo == 14 ) {
+    window.open('esultazioni/indexApertura.html', '_self');
+  } else if (testo == "finish") {
+    window.open('pagellino/index.html', '_self');
+  }
 
   //EMIT BONUS
-          let message = {
-            bonus: contBonus,
-            b_tot: bonus_preso,
-          }
-            socket.emit("bonusOut",message);
-//fine draw
-      }
+  let message = {
+    bonus: contBonus,
+    b_tot: bonus_preso,
+  }
+  socket.emit("bonusOut", message);
+  //fine draw
+}
 /////////////////////////////////////////////////////////////////////
 
 

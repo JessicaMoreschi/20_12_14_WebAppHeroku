@@ -54,10 +54,10 @@ function draw() {
   fill('#B7AEB5'); //3 PALETTE
   text('PREPARATI A TIFARE', width / 2, height / 6*5.1 );
 
-if(testo == 156 || testo < 156){
-   window.open('index.html','_self');
-}
 
+  if(testo == 86 || testo < 86){
+     window.open('index.html','_self');
+   }
 }
 ///////COMANDI PAUSA-STOP-RESET/////////////////////////////////////////////////////
 //funzioni per attivare la pausa

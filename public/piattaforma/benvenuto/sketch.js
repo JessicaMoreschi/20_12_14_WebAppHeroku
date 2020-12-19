@@ -327,6 +327,9 @@ function draw() {
 
 function p() {
   pag++;
+  if (pag == 7){
+    socket.emit('startTimer');
+  }
 }
 
 function q() {

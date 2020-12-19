@@ -49,7 +49,11 @@ function setup() {
 
 function draw() {
   // DISPLAY COUNTDOWN
-  document.getElementById("countDown").innerHTML = testo + "'";
+
+  document.getElementById("countDown").innerHTML = (180-testo) + "'";
+  if (testo=='finish') {
+    document.getElementById("countDown").innerHTML = testo;
+  }
 
   if (gap < 0) {
     testo = "finish" // text fine partita

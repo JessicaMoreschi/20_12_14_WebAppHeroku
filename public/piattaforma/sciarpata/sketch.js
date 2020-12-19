@@ -20,7 +20,7 @@ let i = 0; //regola ogni quanto cambia alt
 let p_coord = 0; //var coordinazione
 
 let feed_piattaforma = 0; //var piattaforma: quando alt!=1 viene incrementata
-let input_utente = 200 //var utente usa la trobetta, preme bottone
+let input_utente ;//var utente usa la trobetta, preme bottone
 
 let opacità = 210 //opacità rettangolo tutorial
 let pronto //coordinzaione tutorial
@@ -133,15 +133,17 @@ function draw() {
 
   //CONTATORE i DEL TEMPO
   j++;
-  if (frameCount % 70 == 0) { //multiplo di 70 incrementa i
+  if (frameCount % 35 == 0) { //multiplo di 70 incrementa i
     i++;
     j = 0;
   }
 
   ///////cambio cartella //////////////////////////////////////////////////
-  if (testo == 30 || testo < 30) {
+
+  if (testo == 130 || testo < 130) {
     window.open('../indexPausa.html', '_self'); //doppio puntino per andare nella cartella sopra
   }
+
 
   background('#F9F9F9'); //chiaro
   imageMode(CENTER); //per pittogrammi
@@ -175,7 +177,7 @@ function draw() {
   fill('#D5D0D3'); //barra grigia
   rectMode(CENTER);
   rect(w * 10, h * 45.5, width / 3.5, 15, 20); //rect(x,y,w,h,[tl])
-  if (i > 3) {
+  if (i > 1) {
     xBarra = ((width / 3.5) / 100) * p_coord; //altezza barra %, xTot= 439 = width / 3.5
   } else {
     xBarra = 0;
@@ -190,9 +192,8 @@ function draw() {
 
   ///////////////BONUS//////////////////////////////////////////////////////////////
 
-  if (p_coord === 80) {
+  if (p_coord == 75) {
     contBonus++;
-
     //EMIT BONUS
     let message = {
       bonus: contBonus,
@@ -263,11 +264,11 @@ function draw() {
   textSize(16);
   fill('#B7AEB5'); //3 PALETTE
   //ICONA FEEDBACK DA SEGUIRE
-  if (i % 2 != 0 && i > 3) {
+  if (i % 2 != 0 && i > 1) {
 
     image(sciarpaBIcon, w * 10, h * 25, sciarpaBIcon.width / 6, sciarpaBIcon.height / 6); //chiara
     feed_piattaforma = 0;
-  } else if (i % 2 == 0 && i > 3) { //cambio colore delle bottone centrale: feedback utente
+  } else if (i % 2 == 0 && i > 1) { //cambio colore delle bottone centrale: feedback utente
     if (j == 0 || j == 23 || j == 46 || j == 70) { //pulsazioni del cerchio
       pulsazione = 0
     } else if (j < 12 || j > 23 && j < 35 || j > 46 && j < 58) {
@@ -283,9 +284,8 @@ function draw() {
 
     document.getElementById("tutorial2").style.display = "none";
     image(sciarpaIcon, w * 10, h * 25, sciarpaIcon.width / 6, sciarpaIcon.height / 6); // scura
-    if (topPrediction == 'up') {
-      feed_piattaforma++;
-    }
+    feed_piattaforma++;
+
   }
 
   //rettangolo in opacità
@@ -294,14 +294,14 @@ function draw() {
   fill(255, 255, 255, opacità);
   rect(0, 0, width, height);
   //rettangolo diventta trasparente alla fine del tutorial
-  if (i > 3) {
+  if (i > 1) {
     opacità = 0
   }
   pop();
 
   //TUTORIAL sciarpa
 
-  if ((i == 0 || i == 2) & (boulPausa == false)) {
+  if ((i == 0 ) & (boulPausa == false)) {
 
     document.getElementById("tutorial").style.display = "block";
     document.getElementById("tutorial2").src = "./assets/immagini/Tutorial_S-giu.gif";
@@ -311,7 +311,7 @@ function draw() {
       text('CORRETTO', w * 10, h * 31.5);
       p_coord = 70;
     }
-  } else if ((i == 1 || i == 3) & (boulPausa == false)) {
+  } else if ((i == 1 ) & (boulPausa == false)) {
     document.getElementById("tutorial").src = "./assets/immagini/Tutorial_S-su.gif";
     document.getElementById("tutorial2").style.display = "block";
     document.getElementById("tutorial").style.display = "none";
@@ -331,7 +331,7 @@ function draw() {
   // FEED UTENTE (PALLINI COLORATI)
   if (topPrediction == 'up' && i % 2 == 0) { //alza la sciarpa
     pulsazione = 0;
-    input_utente = 147;
+    input_utente = 290;
     push();
     var z = 25 + p_coord;
     tint(255, z * 3.5); // Display at half opacity

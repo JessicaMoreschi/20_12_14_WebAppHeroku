@@ -437,3 +437,9 @@ height: 95.66585px;
 button:disabled{
   opacity: 20%
 }
+
+#startBtn, #stopBtn, #resetBtn{
+  background-color: #f9f9f8;
+  border-color: #f9f9f8;
+  color: #f9f9f8;
+}
