@@ -11,6 +11,16 @@ app.use(express.static("public"));
 let io = socket(server)
 io.on("connection", newConnection) //esegui quando un client si connette
 
+//limita id
+var connectionsLimit = 2
+io.on('connection', function(socket) {
+  if (io.engine.clientsCount > connectionsLimit) {
+    socket.emit('err', { message: 'reach the limit of connections' })
+    socket.disconnect()
+    console.log('Disconnected...')
+    return
+  }
+})
 
 // RICEZIONE/INVIO (from 1 client to all)
 function newConnection(socket) {
