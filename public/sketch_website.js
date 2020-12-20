@@ -7,6 +7,7 @@ var gap; //gap tra countDown e Now
 var runningTime = 180; //secondi che scorrono
 var thisTime = 180; //secondi allo stopTimer
 var testo = 180; //variabile testo this countdown
+let iSpot=0;
 
 
 var bonus_preso = 0;
@@ -75,32 +76,34 @@ function draw() {
 
   socket.emit("daspoOut", daspo_counter);
 
-//spot
-if (testo == 91) {
-  videoAction.pause();
-  videoAction.setAttribute('src', 'assets/spot.mp4');
-  videoAction.play();
-  document.getElementById('stopBtn').disabled = true;
-}
 
-if (testo == 90) {
+//pausa spot
+if (testo==90) {
+  //stop tempo
   clearInterval(x); //blocca countdown
   thisTime = runningTime; //registra secondo allo stop
-  testo = 90; //visualizza secondo allo stop
+  testo = thisTime; //visualizza secondo allo stop
   countDown = new Date().getTime() + (thisTime * 1000); //+1000=+1s
 
-  if (videoAction.ended){
-    videoAction.setAttribute('src', 'assets/Partita_Tempo2.mp4');
-    document.getElementById('stopBtn').disabled = false;
+  if (frameCount%2==0) {
+    iSpot++
+  }
 
-    clearInterval(x); //blocca countdown
-    thisTime = 89; //resetta countdown
-    testo = thisTime; //visualizza countdown
-    countDown = new Date().getTime() + (thisTime * 1000); //+1000=+1s
+  if (iSpot>=(50/2*30)) {
     startTimer()
-
+    console.log('riparti')
+    console.log(iSpot)
+    testo++
   }
 }
+
+//apdate gol
+if (testo==7) {
+  document.getElementById("punt").innerHTML = '1 : 0'
+}
+
+
+
 
 }
 

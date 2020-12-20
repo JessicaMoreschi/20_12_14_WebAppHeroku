@@ -70,21 +70,6 @@ function setup() {
   ellipse((width/2-(width/100*2.5))/6*0+(width/100*2.5)/2,height/5*2, 10)
   ellipse((width/2-(width/100*2.5))/6*0+(width/100*2.5)/2,height/5*3, 10)
   pop()
-
-  //linee sx
-  push()
-  strokeWeight(0.5);
-  stroke('#D6D1D3');
-  noFill()
-  line(width/100*2.5,height/5*1.5,width/100*2.5,height/5*3.5);
-  line((width/2-(width/100*2.5))/6+(width/100*2.5),height/5*1.5,(width/2-(width/100*2.5))/6+(width/100*2.5),height/5*3.5);
-  line((width/2-(width/100*2.5))/6*2+(width/100*2.5),height/5*1.5,(width/2-(width/100*2.5))/6*2+(width/100*2.5),height/5*3.5);
-  line((width/2-(width/100*2.5))/6*3+(width/100*2.5),height/5*1.5,(width/2-(width/100*2.5))/6*3+(width/100*2.5),height/5*3.5);
-  line((width/2-(width/100*2.5))/6*4+(width/100*2.5),height/5*1.5,(width/2-(width/100*2.5))/6*4+(width/100*2.5),height/5*3.5);
-  line((width/2-(width/100*2.5))/6*5+(width/100*2.5),height/5*1.5,(width/2-(width/100*2.5))/6*5+(width/100*2.5),height/5*3.5);
-  line(width/100*2.5,height/2,width-(width/100*2.5),height/2);
-
-  pop()
   //testo sx
   push();
   textFont('Quicksand', BOLD);
@@ -98,14 +83,9 @@ function setup() {
   text("60'", (width/2-(width/100*2.5))/6*4+(width/100*2.5),height/5*4);
   text("75'", (width/2-(width/100*2.5))/6*5+(width/100*2.5),height/5*4);
   pop()
-  //line centro
-  push()
-  strokeWeight(1);
-  stroke('#887b86');
-  line(width/2,height/10,width/2,height/10*9);
-  pop()
   //performance dx
-  push();
+
+push();
   textFont('Quicksand', BOLD);
   textAlign(RIGHT);
   textSize(13);
@@ -128,19 +108,8 @@ function setup() {
   ellipse(width-(width/100*2.5)+(width/100*2.5)/2,height/5*2, 10)
   ellipse(width-(width/100*2.5)+(width/100*2.5)/2,height/5*3, 10)
   pop()
-  //linee dx
-  push()
-  strokeWeight(0.5);
-  stroke('#D6D1D3');
-  noFill()
-  line((width/2-(width/100*2.5))/6+(width/2),height/5*1.5,(width/2-(width/100*2.5))/6+(width/2),height/5*3.5);
-  line((width/2-(width/100*2.5))/6*2+(width/2),height/5*1.5,(width/2-(width/100*2.5))/6*2+(width/2),height/5*3.5);
-  line((width/2-(width/100*2.5))/6*3+(width/2),height/5*1.5,(width/2-(width/100*2.5))/6*3+(width/2),height/5*3.5);
-  line((width/2-(width/100*2.5))/6*4+(width/2),height/5*1.5,(width/2-(width/100*2.5))/6*4+(width/2),height/5*3.5);
-  line((width/2-(width/100*2.5))/6*5+(width/2),height/5*1.5,(width/2-(width/100*2.5))/6*5+(width/2),height/5*3.5);
-  line(width-(width/100*2.5),height/5*1.5,width-(width/100*2.5),height/5*3.5);
-  pop()
   //testo dx
+
   push();
   textFont('Quicksand', BOLD);
   textAlign(CENTER);
@@ -219,6 +188,42 @@ function draw() {
   if (testo==180){
     setup()
   }
+
+  //linee sx
+  push()
+  strokeWeight(0.5);
+  stroke('#D6D1D3');
+  noFill()
+  line(width/100*2.5,height/5*1.5,width/100*2.5,height/5*3.5);
+  line((width/2-(width/100*2.5))/6+(width/100*2.5),height/5*1.5,(width/2-(width/100*2.5))/6+(width/100*2.5),height/5*3.5);
+  line((width/2-(width/100*2.5))/6*2+(width/100*2.5),height/5*1.5,(width/2-(width/100*2.5))/6*2+(width/100*2.5),height/5*3.5);
+  line((width/2-(width/100*2.5))/6*3+(width/100*2.5),height/5*1.5,(width/2-(width/100*2.5))/6*3+(width/100*2.5),height/5*3.5);
+  line((width/2-(width/100*2.5))/6*4+(width/100*2.5),height/5*1.5,(width/2-(width/100*2.5))/6*4+(width/100*2.5),height/5*3.5);
+  line((width/2-(width/100*2.5))/6*5+(width/100*2.5),height/5*1.5,(width/2-(width/100*2.5))/6*5+(width/100*2.5),height/5*3.5);
+  line(width/100*2.5,height/2,width-(width/100*2.5),height/2);
+
+  pop()
+
+  //line centro
+  push()
+  strokeWeight(1);
+  stroke('#887b86');
+  line(width/2,height/10,width/2,height/10*9);
+  pop()
+
+  //linee dx
+  push()
+  strokeWeight(0.5);
+  stroke('#D6D1D3');
+  noFill()
+  line((width/2-(width/100*2.5))/6+(width/2),height/5*1.5,(width/2-(width/100*2.5))/6+(width/2),height/5*3.5);
+  line((width/2-(width/100*2.5))/6*2+(width/2),height/5*1.5,(width/2-(width/100*2.5))/6*2+(width/2),height/5*3.5);
+  line((width/2-(width/100*2.5))/6*3+(width/2),height/5*1.5,(width/2-(width/100*2.5))/6*3+(width/2),height/5*3.5);
+  line((width/2-(width/100*2.5))/6*4+(width/2),height/5*1.5,(width/2-(width/100*2.5))/6*4+(width/2),height/5*3.5);
+  line((width/2-(width/100*2.5))/6*5+(width/2),height/5*1.5,(width/2-(width/100*2.5))/6*5+(width/2),height/5*3.5);
+  line(width-(width/100*2.5),height/5*1.5,width-(width/100*2.5),height/5*3.5);
+  pop()
+
 
 }
 
