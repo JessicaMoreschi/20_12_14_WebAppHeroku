@@ -10,7 +10,7 @@ let pag = 0;
 let spunta = 0;
 let h1, h2;
 
-let divieto = 'ELOGIA IL CONTENIMENTO';
+let divieto = 'NESSUNA ESUBERANZA';//ELOGIA IL CONTENIMENTO
 let sotto_divieto1 = 'Mantenere gesti e volume controllati: non sarà necessario'
 let sotto_divieto2 = 'sbracciarsi o fare schiamazzi di alcun tipo.'
 let step = 'step 1/3';
@@ -187,7 +187,7 @@ function draw() {
     }
 
   } else if (pag == 3) {
-    let divieto = "SCONFIGGI L'AVVERSIONE";
+    let divieto = "NESSUNA AVVERSIONE";
     let sotto_divieto1 = 'Sono ammesse unicamente critiche di tipo costruttivo'
     let sotto_divieto2 = 'con il fine di migliorare le performance.'
     push();
@@ -215,7 +215,7 @@ function draw() {
 
   } else if (pag == 4) { /////////////////////////////////////////////////////// ULTIMA CONDIZIONE
     button_text = 'Accetto';
-    let divieto = 'SCONFIGGI LA SCARAMANZIA';
+    let divieto = 'NESSUNA SCARAMANZIA';
     let sotto_divieto1 = 'Non sarà richiesto nessun gesto irrazionale o scaramantico.'
     let sotto_divieto2 = 'Il successo è pura razionalità.'
     push();
