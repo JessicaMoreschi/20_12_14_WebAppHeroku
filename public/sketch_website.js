@@ -25,6 +25,14 @@ var myCanvas
 socket.on("startTimer", startTimer); // StartTimer
 socket.on("stopTimer", stopTimer); // StopTimer
 socket.on("resetTimer", resetTimer); // ResetTimer
+
+// let SERIAL
+let serial; // variable to hold an instance of the serialport library
+let portName = '/dev/tty.usbmodem14101'; // fill in your serial port name here
+// let options = {baudrate: 9600}; // change the data rate to whatever you wish
+// serial.open(portName, options);
+let inData; // for incoming serial data
+
 // RICEZIONE BONUS
 socket.on("bonusIn", bonus_server);
 
@@ -42,6 +50,17 @@ function updateDaspo(dataReceived) {
 
 
 function setup() {
+  // setup SERIAL
+  serial = new p5.SerialPort(); // make a new instance of the serialport library
+  serial.on('list', printList); // set a callback function for the serialport list event
+  serial.on('connected', serverConnected); // callback for connecting to the server
+  serial.on('open', portOpen); // callback for the port opening
+  serial.on('data', serialEvent); // callback for when new data arrives
+  serial.on('error', serialError); // callback for errors
+  serial.on('close', portClose); // callback for the port closing
+
+  serial.list(); // list the serial ports
+  serial.open(portName); // open a serial port
 
 // SETUP VIDEO
   videoAction = document.getElementById('videoView');
@@ -62,6 +81,11 @@ function draw() {
 
   //EMIT COUNTDOWN
   socket.emit("testoOut", testo);
+
+  //start di sicurezza
+  if (testo<3) {
+    socket.emit('startTimer');
+  }
 
   //EMIT BONUS
   let message = {
@@ -103,7 +127,15 @@ if (testo==7) {
 }
 
 
+///// feedback bottone trombetta emit
+  if (inData == 49) {
+    socket.emit("trombettaSocketOn");
+  }
 
+  if (inData == 48) {
+    socket.emit("trombettaSocketOff");
+  }
+}
 
 }
 
