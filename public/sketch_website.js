@@ -135,7 +135,7 @@ if (testo==7) {
   if (inData == 48) {
     socket.emit("trombettaSocketOff");
   }
-}
+
 
 }
 
