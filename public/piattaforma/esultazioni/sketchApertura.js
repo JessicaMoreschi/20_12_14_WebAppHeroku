@@ -44,7 +44,7 @@ function draw() {
   //testo centrale
   textSize(15);
   fill('#877B85'); //4° colore PALETTE
-  text('ESULTAZIONI', width / 2, height / 6 * 4.9);
+  text('ESULTANZA', width / 2, height / 6 * 4.9);
   textSize(13);
   fill('#B7AEB5'); //3 PALETTE
   text('PREPARATI A TIFARE', width / 2, height / 6 * 5.1);

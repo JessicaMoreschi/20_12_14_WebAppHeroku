@@ -56,32 +56,27 @@ background-image: url("data:image/svg+xml,%3Csvg id='Layer_1' data-name='Layer 1
 /* The container for chackbox privacy */
 #container{
   position:absolute;
-  width:35%;
-  height:auto;
+  width:100%;
   left:40%;
-  top:75%;
-  margin:0;
+  top:100%;
+  margin: 0;
   z-index:1;
   display: none;
   justify-content:left;
   align-items: center;
+    margin-top: 5%;
   }
 
 .container {
-  display: block;
-  position: relative;
   padding-left: 35px;
-  margin-bottom: 12px;
   cursor: pointer;
   font-size: 10px;
   font-weight: bold;
   font-family: 'Quicksand', sans-serif;
   text-align:left;
   color: #877B85;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
+
 }
 
 /* Hide the browser's default checkbox */
@@ -101,6 +96,7 @@ background-image: url("data:image/svg+xml,%3Csvg id='Layer_1' data-name='Layer 1
   height: 15px;
   width: 15px;
   background-color:#D5D0D3;
+
 }
 
 /* On mouse-over, add a grey background color */
@@ -135,6 +131,7 @@ background-image: url("data:image/svg+xml,%3Csvg id='Layer_1' data-name='Layer 1
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+
 }
 
 

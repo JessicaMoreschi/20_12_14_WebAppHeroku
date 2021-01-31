@@ -181,7 +181,7 @@ imageMode(CORNER)
 
 
 function p() {
-  window.open('../indexPausa.html', '_self');
+  window.open('../benvenuto/index.html', '_self');
 }
 
 function back() {
