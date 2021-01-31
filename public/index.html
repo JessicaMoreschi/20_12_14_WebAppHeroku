@@ -6,7 +6,7 @@
   <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
   <title>12Uomo© | WebApp</title>
   <link href="website.css" rel="stylesheet" type="text/css">
-  <script src="./socket.io/socket.io.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
   <script src="p5.min.js"></script>
   <!-- <script src="p5.sound.min.js"></script> -->
   <script src="sketch_website.js"></script>
@@ -45,10 +45,10 @@
     <div id="large" onclick="fullScreen()"></div>
   </div>
   <div class="statBar">
-    <p class="voceStat" onclick="funIframe('./piattaforma/benvenuto/index.html')" id="tifo" style="background: #f9f9f8">TIFO</p>
+    <p class="voceStat" onclick="funIframe('/piattaforma/benvenuto/index.html')" id="tifo" style="background: #f9f9f8">TIFO</p>
     <p class="voceStat" onclick="funIframe('statistiche.html')" id="stat" style="background: rgba(214,209,211,0.25); font-weight:bold">STAT</p>
   </div >
-  <video class="videoView" id="videoView" src='./assets/Partita_Tempo1.mp4'> </video>
+  <video class="videoView" id="videoView" src='assets/Partita_Tempo1.mp4'> </video>
   <div class="canvasIframe">
   <iframe id="iframe" src="statistiche.html"></iframe>
   </div>

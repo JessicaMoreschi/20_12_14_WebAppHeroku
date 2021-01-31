@@ -48,15 +48,15 @@ function draw() {
   }
   //if (mouseIsPressed) {
   if (testo == 165 || testo == 164 || testo == 163) {
-    window.open('./sciarpata/indexApertura.html', '_self');
+    window.open('sciarpata/indexApertura.html', '_self');
   } else if (testo == 128 || testo == 127 || testo == 126) {
-    window.open('./esultazioni/indexApertura.html', '_self');
+    window.open('esultazioni/indexApertura.html', '_self');
   } else if (testo == 89 || testo == 88 || testo == 87) {
-    window.open('./trombetta/indexApertura.html', '_self');
+    window.open('trombetta/indexApertura.html', '_self');
   } else if (testo == 16 || testo == 15 || testo == 14 ) {
-    window.open('./esultazioni/indexApertura.html', '_self');
+    window.open('esultazioni/indexApertura.html', '_self');
   } else if (testo == "finish") {
-    window.open('./pagellino/index.html', '_self');
+    window.open('pagellino/index.html', '_self');
   }
 
   //EMIT BONUS
