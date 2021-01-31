@@ -102,10 +102,13 @@ if (testo==7) {
   document.getElementById("punt").innerHTML = '1 : 0'
 }
 
-
-
-
+//sicurezza partita parta
+if (testo==1||testo==2) {
+startTimer()
 }
+
+
+}//fine draw
 
 
 //FUNCTION PLAY-STOP-RESET TIMER
