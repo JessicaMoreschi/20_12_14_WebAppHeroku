@@ -78,7 +78,7 @@ function bonus_server(data) {
 ////////////////FINE COMUNICAZIONE SERVER/////////////////////////////////////
 
 function preload() {
-  baloonIcon = loadImage("./assets/feed_parla.gif");  //nuvoletta attiva
+  baloonIcon = loadImage("./assets/fParla.gif");  //nuvoletta attiva
   baloon_Puntini = loadImage("./assets/scuro.gif"); //nuvoletta pensa
   noParola = loadImage("./assets/noParola.png"); //nuvoletta attiva
   logor = loadImage("./assets/logopiccolo.png") //logo ridotto
