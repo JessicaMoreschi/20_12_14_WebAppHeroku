@@ -78,7 +78,7 @@ function bonus_server(data) {
 ////////////////FINE COMUNICAZIONE SERVER/////////////////////////////////////
 
 function preload() {
-  baloonIcon = loadImage("./assets/feed_parla.gif"); //nuvoletta attiva
+  baloonIcon = loadImage("./assets/feed_parla.gif");  //nuvoletta attiva
   baloon_Puntini = loadImage("./assets/scuro.gif"); //nuvoletta pensa
   noParola = loadImage("./assets/noParola.png"); //nuvoletta attiva
   logor = loadImage("./assets/logopiccolo.png") //logo ridotto
@@ -325,7 +325,7 @@ function draw() {
   } else if (testo == 6 || testo < 6) {
     window.open('../indexPausa.html', '_self'); //doppio puntino per andare nella cartella sopra
   }
-  
+
   push();
   textAlign(CORNER);
   fill('#B7AEB5'); //3° PALETTE
