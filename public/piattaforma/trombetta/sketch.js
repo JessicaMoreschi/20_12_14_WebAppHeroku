@@ -11,7 +11,7 @@ let contBonus = 0;
 
 // let SERIAL
 let serial; // variable to hold an instance of the serialport library
-let portName = '/dev/tty.usbmodem14201'; // fill in your serial port name here
+let portName = '/dev/tty.usbmodem14101'; // fill in your serial port name here
 // let options = {baudrate: 9600}; // change the data rate to whatever you wish
 // serial.open(portName, options);
 let inData; // for incoming serial data
@@ -34,6 +34,8 @@ let input_utente; //var utente usa la trobetta, preme bottone
 let opacità = 210 //opacità rettangolo tutorial
 let pronto //coordinzaione tutorial
 
+let trombettaSocket=false
+
 //variabili per DASPO
 let daspo = false; //variabile che dice se daspo è attiva in questo momento
 let daspo_counter = 0; //variabile che conta il numero di daspo
@@ -53,10 +55,20 @@ socket.on("testoIn", updateTesto); //ricezione countdown
 socket.on("stopTimer", dispPausaSer);
 socket.on("startTimer", startTifoSer);
 socket.on("resetTimer", resetTifoSer);
+socket.on("trombettaSocketOn", trSocketOn);
+socket.on("trombettaSocketOff", trSocketOff);
 
 // UPDATE DA SERVER
 function updateTesto(dataReceived) {
   testo = dataReceived //assegna a testo dati da server
+}
+function trSocketOn(){
+  trombettaSocket=true
+  console.log('emitENTER-Si')
+}
+function trSocketOff(){
+  trombettaSocket=false
+  console.log('emitENTER-No')
 }
 // RICEZIONE BONUS
 socket.on("bonusIn", bonus_server);
@@ -219,7 +231,7 @@ function draw() {
 
   // BARRETTE FEED UTENTE (LINETTE)
   for (var x = w * 3.8; x < w * 8.8; x += 40) {
-    if (inData == 49 && daspo == false || keyIsDown(ENTER) && daspo == false) {
+    if (inData == 49 && daspo == false || keyIsDown(ENTER) || trombettaSocket==true && daspo == false) {
       alt = 1 * random(1, 8.5);
       input_utente = 250;
       pulsazione = 0;
@@ -235,7 +247,7 @@ function draw() {
   }
 
   //PER LA BARRA DELLA PERCENTUALE
-  if (inData == 49 || keyIsDown(ENTER)) {
+  if (inData == 49 || keyIsDown(ENTER) || trombettaSocket==true) {
     p_coord = round((feed_piattaforma * input_utente) / 100);
   } else {
     p_coord = 0;
@@ -303,7 +315,7 @@ function draw() {
     tut2Icon.reset();
     text('Segui il ritmo degli altri', w * 10, h * 31);
     let pronto = false;
-    if (inData == 49 || keyIsDown(ENTER)) {
+    if (inData == 49 || keyIsDown(ENTER) || trombettaSocket==true) {
       text('NON COORDINATO', w * 10, h * 33);
     }
   } else if (i == 1 || i == 3) {
@@ -311,7 +323,7 @@ function draw() {
     text('Segui il ritmo degli altri', w * 10, h * 31);
     let pronto = true;
 
-    if (inData == 49 || keyIsDown(ENTER)) {
+    if (inData == 49 || keyIsDown(ENTER) || trombettaSocket==true) {
       text('CORRETTO', w * 10, h * 33);
     }
   }
@@ -319,7 +331,7 @@ function draw() {
   //////DASPO
 
   //daspo condizione
-  if (inData == 49 && i % 2 == 0 && i > 5 && j > 10 && daspo == false || keyIsDown(ENTER) && i % 2 == 0 && i > 5 && j > 10 && daspo == false) {
+  if (inData == 49 && i % 2 == 0 && i > 5 && j > 10 && daspo == false || keyIsDown(ENTER) && i % 2 == 0 && i > 5 && j > 10 && daspo == false || trombettaSocket==true && i % 2 == 0 && i > 5 && j > 10 && daspo == false) {
     daspo = true;
     daspo_counter++;
     secondo_corrente = testo;
@@ -394,6 +406,15 @@ function draw() {
   }
   //////////////////////////////////////////////////////////////////
 
+
+///// feedback bottone trombetta emit
+  if (inData == 49) {
+    socket.emit("trombettaSocketOn");
+  }
+
+  if (inData == 48) {
+    socket.emit("trombettaSocketOff");
+  }
 }
 ///////FINE DRAW/////////////////
 
@@ -431,7 +452,6 @@ function printList(portList) {
 }
 
 
-//funzione trombetta
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
