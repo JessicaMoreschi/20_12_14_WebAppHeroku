@@ -32,29 +32,30 @@ function newConnection(socket) {
     socket.broadcast.emit("bonusIn", dataReceived)
   });
 
-  socket.on("daspoOut", function(dataReceived) { //daspo
-    socket.broadcast.emit("daspoIn", dataReceived)
+  socket.on("daspoOut", function(dataReceived){//daspo
+  socket.broadcast.emit("daspoIn", dataReceived)
   });
 
-  socket.on("trombettaSocketOn", function() { //daspo
-    socket.broadcast.emit("trombettaSocketOn")
+  socket.on("trombettaSocketOn", function(){//daspo
+  socket.broadcast.emit("trombettaSocketOn")
   });
 
-  socket.on("trombettaSocketOff", function() { //daspo
-    socket.broadcast.emit("trombettaSocketOff")
+  socket.on("trombettaSocketOff", function(){//daspo
+  socket.broadcast.emit("trombettaSocketOff")
   });
 
-  socket.on("sayForza", function() { //daspo
-    socket.broadcast.emit("sayForzaOut")
+  socket.on("sayForza", function(){//daspo
+  socket.broadcast.emit("sayForzaOut")
   });
 
-  socket.on("sayBravi", function() { //daspo
-    socket.broadcast.emit("sayBraviOut")
+  socket.on("sayBravi", function(){//daspo
+  socket.broadcast.emit("sayBraviOut")
   });
 
-  socket.on("sayOpla", function() { //daspo
-    socket.broadcast.emit("sayOplaOut")
+  socket.on("sayOpla", function(){//daspo
+  socket.broadcast.emit("sayOplaOut")
   });
+
 
   //* aggiungi qui i messaggi per farli rimbalzare a tutti
 }

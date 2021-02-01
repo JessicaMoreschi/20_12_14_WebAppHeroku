@@ -73,7 +73,7 @@ function draw() {
 
 //pagellino
 imageMode(CORNER)
-      image(pagellino, w * 7.5, h * 22.5, pagellino.width / 1.4, pagellino.height / 1.4);
+       image(pagellino, w * 7.5, h * 22.5, pagellino.width / 1.4, pagellino.height / 1.4);
       imageMode(CENTER)
       image(bordo, w *10 , h * 28, bordo.width / 1.3, bordo.height / 1.3);
 
@@ -100,10 +100,10 @@ imageMode(CORNER)
   text('ESULTAZIONI',  w * 10, h * 28.2);
   text('COORDINAZIONE',  w * 10, h * 31.7);
   textSize(8);
-    text(p_s + '%',  w * 12.1, h * 24.1);
-    text(p_t + '%',  w * 12.1, h * 26.6);
-    text(p_e + '%',  w * 12.1, h * 29.1);
-    text(p_c + '%',  w * 12.1, h * 32.8);
+  text(p_s + '%',  w * 12.1, h * 24.1);
+  text(p_t + '%',  w * 12.1, h * 26.6);
+  text(p_e + '%',  w * 12.1, h * 29.1);
+  text(p_c + '%',  w * 12.1, h * 32.8);
   pop();
 
 ///////////////////////// barre
@@ -126,35 +126,35 @@ imageMode(CORNER)
         fill('#D5D0D3'); //barra grigia
         rectMode(CENTER);
         noStroke();
-        rect(w * 11, h * 27, w*2, 6, p_t);
+         rect(w * 11, h * 27, w*2, 6, p_t);
         //a = ((width / 3.5) / 100) * p_coord; //altezza barra %, xTot= 439 = width / 3.5
         xBarra = ((w*2) / 100) * p_t; //25%
         push();
         rectMode(CORNER);
         fill('#877B85'); //barra viola
         //width/7 è la metà della barra, che è lunga width/3.5
-        rect(w * 11 - w, h * 27 - 3, xBarra, 6, p_e);
+         rect(w * 11 - w, h * 27 - 3, xBarra, 6, p_e);
         pop();
 
     //BARRA esultazione
         fill('#D5D0D3'); //barra grigia
         rectMode(CENTER);
         noStroke();
-        rect(w * 11, h * 29.5, w*2, 6, 20);
+         rect(w * 11, h * 29.5, w*2, 6, 20);
         //xBarra = ((width / 3.5) / 100) * p_coord; //altezza barra %, xTot= 439 = width / 3.5
         xBarra = ((w*2) / 100) * p_e; //
         push();
         rectMode(CORNER);
         fill('#877B85'); //barra viola
         //width/7 è la metà della barra, che è lunga width/3.5
-        rect(w * 11 - w, h * 29.5 - 3, xBarra, 6, 20);
+         rect(w * 11 - w, h * 29.5 - 3, xBarra, 6, 20);
         pop();
 
         //BARRA COORDINAZIONE
             fill('#D5D0D3'); //barra grigia
             rectMode(CENTER);
             noStroke();
-            rect(w * 11, h * 33.2, w*2, 6, 20);
+             rect(w * 11, h * 33.2, w*2, 6, 20);
             //xBarra = ((width / 3.5) / 100) * p_coord; //altezza barra %, xTot= 439 = width / 3.5
             xBarra = ((w*2) / 100) * p_c; //
             push();

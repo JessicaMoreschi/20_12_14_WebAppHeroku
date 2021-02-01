@@ -25,7 +25,6 @@ var myCanvas
 socket.on("startTimer", startTimer); // StartTimer
 socket.on("stopTimer", stopTimer); // StopTimer
 socket.on("resetTimer", resetTimer); // ResetTimer
-
 // RICEZIONE BONUS
 socket.on("bonusIn", bonus_server);
 
