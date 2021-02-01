@@ -455,6 +455,31 @@ function gotSpeech() {
 
 /////////////////////////////////////////////////////////////////////////
 
+//funzioni server
+function sayForzaF() {
+  bButtonColorS = '#877B85';
+  textColorS = '#F9F9F9';
+  input_utente = 1;
+  p = 1;
+  i_ritardo = i;
+}
+
+function sayBraviF() {
+  bButtonColorD = '#877B85';
+  textColorD = '#F9F9F9';
+  input_utente = 1;
+  p = 1;
+  i_ritardo = i;
+}
+
+function sayOplaF() {
+  bButtonColorC = '#877B85';
+  textColorC = '#F9F9F9';
+  input_utente = 1;
+  p = 1;
+  i_ritardo = i;
+}
+
 function mouseClicked() {
   bonus_preso = 1;
 }
@@ -522,29 +547,4 @@ function resetTifoSer() {
   document.getElementById("contTifo").style.display = "none";
   document.getElementById("abbTifo").style.display = "none";
   document.getElementsByClassName("iconPausa").style.display = "none";
-}
-
-//funzioni server
-function sayForzaF() {
-  bButtonColorS = '#877B85';
-  textColorS = '#F9F9F9';
-  input_utente = 1;
-  p = 1;
-  i_ritardo = i;
-}
-
-function sayBraviF() {
-  bButtonColorD = '#877B85';
-  textColorD = '#F9F9F9';
-  input_utente = 1;
-  p = 1;
-  i_ritardo = i;
-}
-
-function sayOplaF() {
-  bButtonColorC = '#877B85';
-  textColorC = '#F9F9F9';
-  input_utente = 1;
-  p = 1;
-  i_ritardo = i;
 }
