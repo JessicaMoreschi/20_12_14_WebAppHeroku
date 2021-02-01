@@ -54,6 +54,9 @@ socket.on("testoIn", updateTesto); //ricezione countdown
 socket.on("stopTimer", dispPausaSer);
 socket.on("startTimer", startTifoSer);
 socket.on("resetTimer", resetTifoSer);
+socket.on("sayForzaOut", sayForzaF);
+socket.on("sayBraviOut", sayBraviF);
+socket.on("sayOplaOut", sayOplaF);
 
 // UPDATE DA SERVER
 function updateTesto(dataReceived) {
@@ -409,9 +412,7 @@ function draw() {
 
 }
 ////////fine draw///////////////////////////////////////////////////////////////////////////////////
-function touchStarted(){
-  getAudioContext().resume()
-}
+
 
 ////////// Riconoscimento vocale parole //////////////////////////////////////////////////////////////
 
@@ -427,6 +428,7 @@ function gotSpeech() {
         input_utente = 1;
         p = 1;
         i_ritardo = i;
+        socket.emit("sayForza");
 
       } else if (speechRec.resultString == 'bravi') {
         bButtonColorD = '#877B85';
@@ -434,6 +436,7 @@ function gotSpeech() {
         input_utente = 1;
         p = 1;
         i_ritardo = i;
+        socket.emit("sayBravi");
 
       } else if (speechRec.resultString == 'Oplà') {
         bButtonColorC = '#877B85';
@@ -441,15 +444,40 @@ function gotSpeech() {
         input_utente = 1;
         p = 1;
         i_ritardo = i;
+        socket.emit("sayOpla");
       }
 
-      //console.log(speechRec.resultString);
+      console.log(speechRec.resultString);
 
     }
   }
 }
 
 /////////////////////////////////////////////////////////////////////////
+
+function sayForzaF(){
+  bButtonColorS = '#877B85';
+  textColorS = '#F9F9F9';
+  input_utente = 1;
+  p = 1;
+  i_ritardo = i;
+}
+
+function sayBraviF(){
+  bButtonColorD = '#877B85';
+  textColorD = '#F9F9F9';
+  input_utente = 1;
+  p = 1;
+  i_ritardo = i;
+}
+
+function sayOplaF(){
+  bButtonColorC = '#877B85';
+  textColorC = '#F9F9F9';
+  input_utente = 1;
+  p = 1;
+  i_ritardo = i;
+}
 
 function mouseClicked() {
   bonus_preso = 1;

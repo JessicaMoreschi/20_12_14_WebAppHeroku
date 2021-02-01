@@ -44,5 +44,18 @@ function newConnection(socket) {
   socket.broadcast.emit("trombettaSocketOff")
   });
 
+  socket.on("sayForza", function(){//daspo
+  socket.broadcast.emit("sayForzaOut")
+  });
+
+  socket.on("sayBravi", function(){//daspo
+  socket.broadcast.emit("sayBraviOut")
+  });
+
+  socket.on("sayOpla", function(){//daspo
+  socket.broadcast.emit("sayOplaOut")
+  });
+
+
   //* aggiungi qui i messaggi per farli rimbalzare a tutti
 }
