@@ -57,14 +57,14 @@ background-image: url("data:image/svg+xml,%3Csvg id='Layer_1' data-name='Layer 1
 #container{
   position:absolute;
   width:100%;
-  left:40%;
+  left:36%;
   top:100%;
   margin: 0;
   z-index:1;
   display: none;
   justify-content:left;
   align-items: center;
-    margin-top: 5%;
+    margin-top: 10%;
   }
 
 .container {
@@ -96,12 +96,11 @@ background-image: url("data:image/svg+xml,%3Csvg id='Layer_1' data-name='Layer 1
   height: 15px;
   width: 15px;
   background-color:#D5D0D3;
-
 }
 
 /* On mouse-over, add a grey background color */
 .container:hover input ~ .checkmark {
-  background-color: #D5D0D3;
+  background-color: #D5D0D3
 }
 
 /* When the checkbox is checked, add a violet background */
