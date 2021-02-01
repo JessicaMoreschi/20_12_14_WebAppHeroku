@@ -152,26 +152,26 @@ function draw() {
   rect(w * 10 - width / 7, h * 45.5 - 7.5, xBarra, 15, 20);
   pop();
 
-///////////////BONUS/////////////////////////////////////////////////////////////
-//pallini BONUS
+  ///////////////BONUS/////////////////////////////////////////////////////////////
+  //pallini BONUS
   for (let i = 0; i < 4; i++) {
-      ellipse(w + s, h * 45.5, 15);
-      s = 25 * i;
+    ellipse(w + s, h * 45.5, 15);
+    s = 25 * i;
 
-    if (contBonus === 1 ) {
+    if (contBonus === 1) {
       push();
       fill('#877B85');
       ellipse(w, h * 45.5, 15);
       pop();
 
-    } else if (contBonus === 2 ) {
+    } else if (contBonus === 2) {
       push();
       fill('#877B85');
       ellipse(w, h * 45.5, 15);
       ellipse(w + 25, h * 45.5, 15);
       pop();
 
-    } else if (contBonus === 3 ) {
+    } else if (contBonus === 3) {
       push();
       fill('#877B85');
       ellipse(w, h * 45.5, 15);
@@ -179,7 +179,7 @@ function draw() {
       ellipse(w + 50, h * 45.5, 15);
       pop();
 
-    } else if (contBonus === 4 ) {
+    } else if (contBonus === 4) {
       push();
       fill('#877B85');
       ellipse(w, h * 45.5, 15);
@@ -188,7 +188,7 @@ function draw() {
       ellipse(w + 75, h * 45.5, 15);
       pop();
 
-    } else if (contBonus === 5 ) {
+    } else if (contBonus === 5) {
       window.open('../bonus/index.html', '_self');
     }
   }
@@ -308,7 +308,7 @@ function draw() {
     p_coord = round(random(10, 80));
     input_utente = 0;
     if (p_coord > 55) {
-      contBonus ++;
+      contBonus++;
 
       //EMIT BONUS
       let message = {
@@ -323,7 +323,7 @@ function draw() {
     window.open('../indexPausa.html', '_self'); //doppio puntino per andare nella cartella sopra
   }
   ///////cambio cartella //////////////////////////////////////////////////
-  if (testo == 100 || (testo < 99  && testo > 80) ) {
+  if (testo == 100 || (testo < 99 && testo > 80)) {
     window.open('../indexPausa.html', '_self'); //doppio puntino per andare nella cartella sopra
   } else if (testo == 6 || testo < 6) {
     window.open('../indexPausa.html', '_self'); //doppio puntino per andare nella cartella sopra
@@ -447,37 +447,13 @@ function gotSpeech() {
         socket.emit("sayOpla");
       }
 
-      console.log(speechRec.resultString);
+      //console.log(speechRec.resultString);
 
     }
   }
 }
 
 /////////////////////////////////////////////////////////////////////////
-
-function sayForzaF(){
-  bButtonColorS = '#877B85';
-  textColorS = '#F9F9F9';
-  input_utente = 1;
-  p = 1;
-  i_ritardo = i;
-}
-
-function sayBraviF(){
-  bButtonColorD = '#877B85';
-  textColorD = '#F9F9F9';
-  input_utente = 1;
-  p = 1;
-  i_ritardo = i;
-}
-
-function sayOplaF(){
-  bButtonColorC = '#877B85';
-  textColorC = '#F9F9F9';
-  input_utente = 1;
-  p = 1;
-  i_ritardo = i;
-}
 
 function mouseClicked() {
   bonus_preso = 1;
@@ -547,3 +523,27 @@ function resetTifoSer() {
   document.getElementById("abbTifo").style.display = "none";
   document.getElementsByClassName("iconPausa").style.display = "none";
 }
+
+//funzioni server
+function sayForzaF() {
+  bButtonColorS = '#877B85';
+  textColorS = '#F9F9F9';
+  input_utente = 1;
+  p = 1;
+  i_ritardo = i;
+}
+
+function sayBraviF() {
+  bButtonColorD = '#877B85';
+  textColorD = '#F9F9F9';
+  input_utente = 1;
+  p = 1;
+  i_ritardo = i;
+}
+
+function sayOplaF() {
+  bButtonColorC = '#877B85';
+  textColorC = '#F9F9F9';
+  input_utente = 1;
+  p = 1;
+  i_ritardo = i;

@@ -86,11 +86,14 @@ function draw() {
 
   ///////// BOTTONE //////////////////////////////////////////////////////////////////////////////////////////
 
-  if (i > 1 ) {
+  if (i > 1) {
+    if (!b1){
     b1 = createButton(button_text);
-    b1.position(w * 9, h * 42);
+    b1.position(w * 8.9, h * 42);
     b1.mousePressed(p);
     b1.id('startBtn');
+    b1.style('width','w * 2');
+    }
   }
 
   ///////// PAG 0 //////////////////////////////////////////////////////////////////////////////////////////
@@ -144,9 +147,9 @@ function draw() {
     noStroke();
     for (let i = 0; i < 4; i++) {
       fill('#d6d1d3');
-      ellipse(w * 9.6 + s, h * 39, 10);
+      ellipse(w * 9.35 + s, h * 39, 10);
       fill('#877B85');
-      ellipse(w * 9.6, h * 39, 10);
+      ellipse(w * 9.35, h * 39, 10);
       s = 20 * i;
     }
 
@@ -170,9 +173,9 @@ function draw() {
     fill('#d6d1d3');
     for (let i = 0; i < 4; i++) {
       fill('#d6d1d3');
-      ellipse(w * 9.6 + s, h * 39, 10);
+      ellipse(w * 9.35 + s, h * 39, 10);
       fill('#877B85');
-      ellipse(w * 9.6 + 20, h * 39, 10);
+      ellipse(w * 9.35 + 20, h * 39, 10);
       s = 20 * i;
     }
 
@@ -196,9 +199,9 @@ function draw() {
     fill('#d6d1d3');
     for (let i = 0; i < 4; i++) {
       fill('#d6d1d3');
-      ellipse(w * 9.6 + s, h * 39, 10);
+      ellipse(w * 9.35 + s, h * 39, 10);
       fill('#877B85');
-      ellipse(w * 9.6 + 40, h * 39, 10);
+      ellipse(w * 9.35 + 40, h * 39, 10);
       s = 20 * i;
     }
     button_text = 'Avanti';
@@ -223,9 +226,9 @@ function draw() {
     noStroke();
     for (let i = 0; i < 4; i++) {
       fill('#d6d1d3');
-      ellipse(w * 9.6 + s, h * 39, 10);
+      ellipse(w * 9.35 + s, h * 39, 10);
       fill('#877B85');
-      ellipse(w * 9.6 + 60, h * 39, 10);
+      ellipse(w * 9.35 + 60, h * 39, 10);
       s = 20 * i;
     }
     h1 = 'Leggi e accetta';
@@ -252,7 +255,7 @@ function draw() {
     push();
     rectMode(CORNER);
     fill('#877B85'); //4° colore PALETTE
-    rect(w * 10 - width / 7, h * 6 - 7.5, xBarra, 15, 20); ///chackbox
+    rect(w * 10 - width / 7, h * 6 - 7.5, xBarra, 15, 20);
 
     textSize(12);
     text(step, w * 10, h * 10);
@@ -274,15 +277,16 @@ function draw() {
 
 
     document.getElementById("tut1").style.display = "flex";
-      document.getElementById("tut2").style.display = "flex";
-        document.getElementById("tut3").style.display = "flex";
+    document.getElementById("tut2").style.display = "flex";
+    document.getElementById("tut3").style.display = "flex";
 
         push();
         textSize(15);
+        textAlign(CENTER);
         fill('#877B85');
-        text('TROMBETTA', w * 6.9, h *32);
+        text('TROMBETTA', w * 6.45, h *32);
         text('SCIARPATA', w * 10, h * 32);
-        text('ESULTANZA', w * 13.1, h * 32);
+        text('ESULTANZA', w * 13.55, h * 32);
         pop();
 
     xBarra = ((width / 3.5) / 100) * 100;
