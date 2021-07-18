@@ -51,12 +51,13 @@ function setup() {
 function draw() {
   // DISPLAY COUNTDOWN
 
-  document.getElementById("countDown").innerHTML = (180-testo) + "'";
+  document.getElementById("countDown").innerHTML = round((180-testo)/2) + "'";
   if (testo=='finish') {
     document.getElementById("countDown").innerHTML = testo;
+    stopTimer()
   }
 
-  if (gap < 0) {
+  if (gap <= 0) {
     testo = "finish" // text fine partita
   }
 
@@ -97,13 +98,17 @@ if (testo==90) {
   }
 }
 
+if (testo<=0) {
+  stopTimer();
+}
+
 //apdate gol
 if (testo==7) {
   document.getElementById("punt").innerHTML = '1 : 0'
 }
 
 //sicurezza partita parta
-if (testo==1||testo==2) {
+if (testo==179) {
 startTimer()
 }
 

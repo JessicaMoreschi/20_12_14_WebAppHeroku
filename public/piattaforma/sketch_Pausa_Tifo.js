@@ -55,7 +55,7 @@ function draw() {
     window.open('trombetta/indexApertura.html', '_self');
   } else if (testo == 16 || testo == 15 || testo == 14 ) {
     window.open('esultazioni/indexApertura.html', '_self');
-  } else if (testo == "finish") {
+  } else if (testo == "finish" || testo <= 0) {
     window.open('pagellino/index.html', '_self');
   }
 
