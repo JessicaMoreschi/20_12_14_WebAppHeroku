@@ -412,7 +412,11 @@ function draw() {
     socket.emit("trombettaSocketOn");
   }
 
-  if ((inData == 48)||(keyIsDown(ENTER)==false)) {
+  else if (inData == 48) {
+    socket.emit("trombettaSocketOff");
+  }
+
+  else {
     socket.emit("trombettaSocketOff");
   }
 }
