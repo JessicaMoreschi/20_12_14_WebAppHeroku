@@ -36,23 +36,23 @@ function newConnection(socket) {
   socket.broadcast.emit("daspoIn", dataReceived)
   });
 
-  socket.on("trombettaSocketOn", function(){//daspo
+  socket.on("trombettaSocketOn", function(){//trombettaon
   socket.broadcast.emit("trombettaSocketOn")
   });
 
-  socket.on("trombettaSocketOff", function(){//daspo
+  socket.on("trombettaSocketOff", function(){//trombettaoff
   socket.broadcast.emit("trombettaSocketOff")
   });
 
-  socket.on("sayForza", function(){//daspo
+  socket.on("sayForza", function(){//forza
   socket.broadcast.emit("sayForzaOut")
   });
 
-  socket.on("sayBravi", function(){//daspo
+  socket.on("sayBravi", function(){//bravi
   socket.broadcast.emit("sayBraviOut")
   });
 
-  socket.on("sayOpla", function(){//daspo
+  socket.on("sayOpla", function(){//opla
   socket.broadcast.emit("sayOplaOut")
   });
 

@@ -408,11 +408,11 @@ function draw() {
 
 
 ///// feedback bottone trombetta emit
-  if (inData == 49) {
+  if ((inData == 49)||(keyIsDown(ENTER))) {
     socket.emit("trombettaSocketOn");
   }
 
-  if (inData == 48) {
+  if ((inData == 48)||(keyIsDown(ENTER)==false)) {
     socket.emit("trombettaSocketOff");
   }
 }
